@@ -15,10 +15,19 @@ Any of these, and it does not need to be tidy:
 - A one-pager, a problem brief, a business case, a memo to yourself.
 - A pitch deck exported to PDF.
 - The README of the thing you are building.
+- Meeting notes, customer call notes, a thread pasted into a file.
 - A page of notes you have not shown anyone.
 - Nothing at all, in which case answer the questions it asks you.
 
-If you have several, say which one, or let it pick and correct it.
+Put it in the folder and it gets read. Several files is fine: it reads them all and says which ones it used.
+
+Formats: `.md`, `.txt`, `.pdf`. A Word doc or a Google Doc needs exporting to PDF or Markdown first. Decks are fine as PDFs, since Claude reads those directly.
+
+## If the material is scattered
+
+You do not have to do the collecting yourself. Ask Claude to pull it together first, in the same session, then run the roast on what comes out. Something like: read my notes and write `venture.md` covering the problem, who has it, what they use today, what I would build first, and what I have actually tested.
+
+Worth knowing: the roast then judges that summary. Evidence that stays in your head does not count, and that is the correct behaviour.
 
 ## What it is looking for
 
@@ -55,7 +64,7 @@ That output is useful on purpose. Knowing that validation is worth seventeen poi
 
 ## What it will not do
 
-- It will not send anything to Builders, and it will not store your scope anywhere. It reads your document inside the Claude Code session you are already in, which means the document goes to Anthropic exactly as it would if you had pasted it into the chat yourself. The report is written to a file next to your work.
+- It will not send anything to Builders, and it will not store your scope anywhere. It reads your document inside the Claude Code session you are already in, which means the document goes to Anthropic exactly as it would if you had pasted it into the chat yourself. If something is too sensitive to paste into Claude Code, it is too sensitive for this. The report is written to a file next to your work.
 - It will not tell you whether to raise money, and it is not a funding decision.
 - It will not be nice about a document that is not doing any work. That is the point.
 
