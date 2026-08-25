@@ -4,7 +4,9 @@ Point it at your scope. It reads the thing, scores it out of 100, and tells you 
 
 From [Builders](https://builders.studio). It runs inside your own Claude Code session.
 
-No API key. No account. Nothing leaves your machine. The judgement happens in the Claude session you already have, the sums happen in small local scripts, and the report is a file on your own disk.
+No API key, no account, and no server of ours. It runs in the Claude Code session you already have, so your scope goes to Anthropic the same way everything else you type into Claude Code does, under whatever terms you already have with them. Nothing is sent to Builders, nothing is stored anywhere, and the report is written to a file on your own disk.
+
+If a document is too sensitive to paste into Claude Code, it is too sensitive for this. That is the honest version.
 
 ## Install
 

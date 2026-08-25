@@ -2,3 +2,8 @@ node_modules/
 .DS_Store
 out/
 *.local.*
+
+# Working material lives in ~/scope-roast-workshop, outside this folder.
+# These two lines are belt and braces in case anything is ever copied back in.
+design/
+evals/

@@ -55,7 +55,7 @@ That output is useful on purpose. Knowing that validation is worth seventeen poi
 
 ## What it will not do
 
-- It will not upload anything. Everything happens in the session you are already in, and the report is written to a file next to your work.
+- It will not send anything to Builders, and it will not store your scope anywhere. It reads your document inside the Claude Code session you are already in, which means the document goes to Anthropic exactly as it would if you had pasted it into the chat yourself. The report is written to a file next to your work.
 - It will not tell you whether to raise money, and it is not a funding decision.
 - It will not be nice about a document that is not doing any work. That is the point.
 

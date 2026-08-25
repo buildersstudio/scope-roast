@@ -55,8 +55,8 @@ test('every total is recomputable from the dimension scores as displayed', () =>
   }
 })
 
-// The case Julia raised: not enough written down to really assess. The tool
-// must say so rather than quietly scoring the silence as failure.
+// The case that matters most: not enough written down to really assess. The
+// tool must say so rather than quietly scoring the silence as failure.
 test('a sparse scope reports insufficient coverage instead of a confident number', () => {
   const r = load('sparse')
   assert.equal(r.coverage.confidence, 'insufficient')
