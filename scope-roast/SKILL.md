@@ -53,7 +53,7 @@ Never refuse to run because the material is thin. Score what is there and let th
 
 Read `rubric/scope-rubric.json` in full, then `reference/scoring.md`.
 
-For each of the fourteen fields decide two things: `basis`, how much the source actually said, and `rating`, how good it was. A field the source never mentions is `absent` and carries no rating. This is the distinction the whole tool turns on, so get it right: not writing something is not the same as getting it wrong.
+For each of the fourteen parts decide two things: `basis`, how much the source actually said, and `rating`, how good it was. A part the source never mentions is `absent` and carries no rating. This is the distinction the whole tool turns on, so get it right: not writing something is not the same as getting it wrong.
 
 Wedge is judged separately from evidence, and this trips people up. Evidence asks whether reality has touched the idea. Wedge asks whether there is a bounded thing for reality to touch: where version one starts, what it explicitly does not do, and what result would prove it wrong. A founder with three paid pilots can still have no boundary, and a crisply bounded proposal can have no evidence at all. Read `reference/scoring.md` on this before rating `boundary` or `falsifiable`, and look for the absence of a boundary deliberately, because nothing is written where that problem lives.
 
@@ -69,19 +69,23 @@ Do not compute the total, the dimensions, the score scale, or the cap yourself. 
 
 ## Phase 3: write the roast
 
-Read `reference/roast-voice.md` and `reference/report-spec.md`.
+Read `reference/roast-voice.md` and `reference/report-spec.md` before writing a word.
 
-Build `roast-payload.json`. The `scored` key is the whole object the script just printed, pasted unchanged. The `prose` key is yours.
+Write `scope-roast.md` in the working directory. Markdown is the deliverable. Aim for 650 to 800 words of prose, not counting tables, and never go past 900.
 
-Every burn needs a verbatim quote from their own document, the burn, the rubric line it breaks, and a concrete fix. Three burns, two strengths, five probes, one rewrite. No em-dashes or en-dashes anywhere.
-
-## Phase 4: write the roast
-
-Write `scope-roast.md` in the working directory, following `reference/report-spec.md`. Markdown is the deliverable. Aim for 600 to 750 words.
+Three burns, two strengths, and the ranked list of what to write first. Every burn needs a verbatim quote from their own document, the burn itself, and a concrete fix they could paste in. When the part was never written the quote line says so and the burn is about the absence.
 
 Lead with `scope.verdict` from the scored object, not the raw score scale sentence. When coverage is not firm it already carries the right framing.
 
-An HTML render is optional. Offer it, do not assume it:
+Two things the report must do that are easy to skip. Give them the process view from `development`: how many of the fourteen parts are written down, how many are specific enough for someone else to check, and how many have been tested against reality. For most people that drop is the real finding. And say every number once. Repeating the coverage count in three places is what makes a report read like a machine filled in a template.
+
+No em-dashes or en-dashes anywhere.
+
+## Phase 4: the optional HTML render
+
+Offer it, do not assume it. Most people only want the Markdown.
+
+If they want it, build `roast-payload.json`. The `scored` key is the whole object the script printed, pasted unchanged. The `prose` key is yours.
 
 ```bash
 <tool-root>/bin/roast render roast-payload.json scope-roast.html
@@ -89,11 +93,11 @@ An HTML render is optional. Offer it, do not assume it:
 
 Then in the chat give them:
 
-- **Coverage first if it is not firm.** "I could assess 4 of 12 fields, so this is provisional" goes before the number, not after it. A confident-looking score built from a quarter of the picture is the most dishonest thing this tool can produce.
+- **Coverage first if it is not firm.** "Only 4 of the 14 parts are written down, so this is provisional" goes before the number, not after it. A confident-looking score built from a quarter of the picture is the most dishonest thing this tool can produce.
 - The scope score, where it lands on the score scale, and the cap if one fired.
 - The fit verdict and its reasons, as a separate statement. Never merge it into the score sentence.
 - The three burns, in full.
-- The top three entries from `opportunities`, with the points each is worth. This is computed, so quote the numbers.
+- The top three entries from `opportunities`, and what the score would rise to if they fixed them. This is computed, so quote the numbers.
 - The path to `scope-roast.md`.
 
 Do not paste the whole file back. Do not soften the burns in the chat version.
