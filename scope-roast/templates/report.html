@@ -9,31 +9,42 @@
 <body>
 <div class="wrap">
 
-<p class="label">Scope roast, evidence not vibes</p>
+<p class="label">Scope roast</p>
 <h1>{{TITLE}}</h1>
+<p class="source">{{SOURCE}}</p>
 
-<div class="verdict">
-  <p class="label">Scope score</p>
-  <p class="total">{{TOTAL}}<span>/100</span></p>
-  <p class="band">{{BAND_LABEL}}</p>
-  <p>{{HEADLINE}}</p>
-  {{PROVISIONAL_BADGE}}
+<div class="grid">
+
+  <div class="panel">
+    <p class="label">Scope score</p>
+    <p class="total">{{TOTAL}}<span>/100</span></p>
+    <p class="band">{{BAND_LABEL}}</p>
+    <p class="sub">{{HEADLINE}}</p>
+    {{PROVISIONAL_BADGE}}
+    {{SCALE}}
+  </div>
+
+  <div class="panel">
+    <p class="label">How far you have taken this</p>
+    {{DEVELOPMENT}}
+  </div>
+
+  <div class="panel fit {{FIT_STATUS}}">
+    <p class="label">Would Builders build it</p>
+    {{FIT}}
+  </div>
+
 </div>
-
-{{COVERAGE}}
 
 {{CAP_BLOCK}}
 
 <h2>The six dimensions</h2>
-<p class="sub">The score is the weighted mean of these. Evidence carries the most, wedge is right behind it.</p>
+<div class="panel">
 {{DIMENSIONS}}
-
-<h2>Would Builders build it</h2>
-<p class="sub">A separate question from the score, and it does not change the score.</p>
-{{FIT}}
+<p class="step-note">{{MATHS_NOTE}}</p>
+</div>
 
 <h2>Where it falls over</h2>
-<p class="sub">Founders who would rather prove it than pitch it.</p>
 {{BURNS}}
 
 <h2>What is actually working</h2>
@@ -41,32 +52,36 @@
 {{STRENGTHS}}
 </ul>
 
-<h2>Fix these first</h2>
-<p class="sub">Ranked by how many scope points are genuinely recoverable, not by opinion.</p>
+<h2>Write these first</h2>
+<div class="panel">
 <div class="overflow">
 <table>
-<thead><tr><th>Field</th><th>Now</th><th class="num">Points back</th></tr></thead>
+<thead><tr><th>Part</th><th>Now</th><th class="num">Score if you fix it</th></tr></thead>
 <tbody>
 {{FIXES}}
 </tbody>
 </table>
 </div>
+<p class="step-note">Each row is where the total lands if that one part went to 5 out of 5 and nothing else moved.</p>
+</div>
 
 {{REWRITE}}
 
-<h2>All fourteen, in detail</h2>
+<h2>All fourteen parts</h2>
+<div class="panel">
+{{COVERAGE}}
 <div class="overflow">
 <table>
-<thead><tr><th>Field</th><th>Basis</th><th class="num">Rating</th><th class="num">Weight</th></tr></thead>
+<thead><tr><th>Part</th><th>How much you wrote</th><th class="num">Rating</th><th class="num">Share of 100</th></tr></thead>
 <tbody>
 {{RATINGS}}
 </tbody>
 </table>
 </div>
+</div>
 
 <footer>
-  <p>You can check the maths yourself. The opinions are ours, and you are welcome to argue with those. Neither is a funding decision.</p>
-  <p class="sig">Bold founders, stellar companies.</p>
+<p>The score is sums you can check: the same ratings always give the same number. The opinions are the tool's, and you are welcome to argue with those. Neither is a funding decision. It read a document and told you how good it is.</p>
 </footer>
 
 </div>

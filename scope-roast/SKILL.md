@@ -73,13 +73,17 @@ Do not compute the total, the dimensions, the score scale, or the cap yourself. 
 
 Read `reference/roast-voice.md` and `reference/report-spec.md` before writing a word.
 
-Write `scope-roast.md` in the working directory. Markdown is the deliverable. Aim for 650 to 800 words of prose, not counting tables, and never go past 900.
+Write `scope-roast.md` in the working directory. Markdown is the deliverable.
 
-Three burns, two strengths, and the ranked list of what to write first. Every burn needs a verbatim quote from their own document, the burn itself, and a concrete fix they could paste in. When the part was never written the quote line says so and the burn is about the absence.
+The file is two documents. First a letter, 500 to 700 words, which is your read of their document and carries no tables at all. Then a rule, then `# The numbers`, where every table lives. Keeping those apart is what stops the report reading like a form, so `reference/report-spec.md` covers it first and in detail.
+
+Title it `[Name]: Scope Roast`. Every burn gets a header that names the actual finding rather than the field key. Three burns, two strengths, the process view, and fit. Every burn needs a verbatim quote from their own document, the burn, what it costs them downstream, and a sentence they could paste in. When the part was never written the quote line says so and the burn is about the absence.
 
 Lead with `scope.verdict` from the scored object, not the raw score scale sentence. When coverage is not firm it already carries the right framing.
 
-Two things the report must do that are easy to skip. Give them the process view from `development`: how many of the fourteen parts are written down, how many are specific enough for someone else to check, and how many have been tested against reality. For most people that drop is the real finding. And say every number once. Repeating the coverage count in three places is what makes a report read like a machine filled in a template.
+Two things that are easy to skip. Give them the process view from `development`: how many of the fourteen parts are written down, how many are specific enough for someone else to check, and how many have been tested against reality. For most people that drop is the real finding. And say every number once. Repeating the coverage count in three places is what makes a report read like a machine filled in a template.
+
+Let the length follow what matters. Uniform sections are the loudest sign of a template being filled, so give the real problem three paragraphs and give a formality one sentence.
 
 No em-dashes or en-dashes anywhere.
 

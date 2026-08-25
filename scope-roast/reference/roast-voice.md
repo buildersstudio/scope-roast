@@ -60,6 +60,8 @@ Softeners: "just" in the middle of a sentence, "actually" as filler, "a bit", "q
 
 Passive voice where a subject exists. "It was determined that" becomes "you decided". "Mistakes were made" becomes "you missed this".
 
+Never tell them what they should do. "What it should say", "you should write", "you should have". Should is a word for someone standing over your shoulder, and the founder already has enough of those. Say what would be sharper, what is missing, what you would write. The difference is between a colleague and a marker.
+
 Consultant nouns: leverage, synergy, holistic, robust, seamless, best-in-class, journey, unlock, empower, ecosystem, optimise, streamline.
 
 Transition stacking: furthermore, moreover, additionally, in addition. You get but, and, so, then, because.

@@ -29,7 +29,7 @@ test('render returns a complete standalone document with no leftover placeholder
 
 test('render inlines the stylesheet so the file needs no network', () => {
   const html = render(payload())
-  assert.match(html, /--cream: #FAF7F2/)
+  assert.match(html, /--ground: #0b0e11/)
   assert.ok(!html.includes('<link'))
   assert.ok(!html.includes('http://') && !html.includes('https://'))
 })
@@ -67,7 +67,7 @@ test('firm coverage renders no provisional badge', () => {
 
 test('fit renders in its own card with its status class and reasons', () => {
   const html = render(payload('strong-out-of-scope'))
-  assert.match(html, /class="fit out-of-scope"/)
+  assert.match(html, /class="panel fit out-of-scope"/)
   assert.match(html, /Consumer product/)
 })
 
@@ -85,14 +85,17 @@ test('the cap block appears only when a cap actually bit', () => {
   assert.match(render(capped), /class="cap"/)
 })
 
-test('the fixes table is ranked by recoverable points, descending', () => {
+test('the fixes table leads with the part worth the most, in order', () => {
+  // Each cell is where the total would land, so the column descends for the
+  // same reason the opportunity list does: the biggest win is first.
   const html = render(payload('weak'))
-  const points = [...html.matchAll(/class="num">\+([\d.]+)</g)].map((m) => Number(m[1]))
-  assert.ok(points.length >= 5)
-  for (let i = 1; i < points.length; i++) {
-    assert.ok(points[i - 1] >= points[i], `row ${i} out of order`)
+  const table = html.split('<th>Part</th>')[1].split('</table>')[0]
+  const lands = [...table.matchAll(/class="num">(\d+)</g)].map((m) => Number(m[1]))
+  assert.ok(lands.length >= 5)
+  for (let i = 1; i < lands.length; i++) {
+    assert.ok(lands[i - 1] >= lands[i], `row ${i} out of order`)
   }
-  assert.match(html, /Validation|Ideal customer/, 'the heaviest weak fields lead')
+  assert.match(html, /Validation|Ideal customer/, 'the heaviest weak parts lead')
 })
 
 test('an unwritten field is marked as unwritten in the fixes table', () => {
