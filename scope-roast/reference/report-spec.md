@@ -25,7 +25,7 @@ Never call it arithmetic. Nobody says that word out loud. It is the maths, or th
 [2 to 3 sentences. See below.]
 
 ## How far you have taken this
-[the four stage counts from `development`, then the bottleneck line]
+[the three steps as full sentences with counts, then the biggest-drop line]
 
 ## What decides this
 [2 short paragraphs. The single thing that moves this score.]
@@ -64,9 +64,21 @@ Never call it arithmetic. Nobody says that word out loud. It is the maths, or th
 
 **Before we start** is the disarming paragraph and it earns everything after it. Say three things and nothing else: you read the document and not the company; they can check every number in it; how many fields were missing and that silence was not scored as failure. Keep it under 80 words. It is not an apology, and it is not a preamble about what a scope is.
 
-**How far you have taken this** is the process view, and for most founders it lands harder than the score. It carries the counts, so nothing above it should have. It comes straight from `development` in the scored object. Four counts out of fourteen: how many parts exist at all, how many are written down, how many are specific enough that someone else could check them (rated 4 or 5), and how many have been tested against reality (rated 5). Present it as a short table or four lines, biggest to smallest.
+**How far you have taken this** is the process view, and for most founders it lands harder than the score. It carries the counts, so nothing above it should have. It comes straight from `development` in the scored object.
 
-Then one sentence naming the bottleneck, which is almost always the drop between written and specific. `development.assertedFields` is that gap: things they wrote and never made checkable. Say the number and say what it means. Do not moralise about it.
+Never render this as a bare table. Fragment labels in table cells ("A scope has", "Reality has touched") mean nothing on their own, and this section fails completely when a row does not explain itself. Write it as three steps, because after the blank page a scope is built in exactly three moves, and say each one as a full plain sentence with its count:
+
+```markdown
+Every part of a scope goes through the same three steps. First you write it down. Then you make it specific enough that someone else could check it. Then you go and find out if it is true.
+
+- **Written down:** [written] of the 14 parts
+- **Checkable:** [specific] of those [written], meaning someone else could go and verify what you wrote
+- **Tested:** [tested] of those [specific], meaning reality has already answered
+```
+
+The three lines nest, and the wording has to make the nesting obvious: each count is drawn from the line above it, not from 14. Checkable means rated 4 or 5. Tested means rated 5.
+
+Then one or two sentences naming the biggest drop, which is almost always written to checkable. `development.assertedFields` is that gap: parts they wrote and never made checkable. Say the number, name two or three of the parts in plain words, and say what the gap means. Do not moralise about it.
 
 **What decides this** names the single thing. Usually the gap between the strongest and weakest dimension. Two short paragraphs, and the second one is where the knife goes in.
 
