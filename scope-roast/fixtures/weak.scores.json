@@ -1,0 +1,90 @@
+{
+  "fields": {
+    "background": {
+      "rating": 1,
+      "basis": "thin",
+      "evidence": "Twelve years of consulting across three unrelated sectors. Adjacent to every domain, inside none."
+    },
+    "connection": {
+      "rating": 0,
+      "basis": "thin",
+      "evidence": "Always been fascinated. No moment, no consequence, no name."
+    },
+    "essential": {
+      "rating": 1,
+      "basis": "thin",
+      "evidence": "Asserts that waste matters, never says who is accountable when it happens."
+    },
+    "spread": {
+      "rating": 1,
+      "basis": "thin",
+      "evidence": "An analyst figure with no derivation and no bottom-up count."
+    },
+    "icp": {
+      "rating": 0,
+      "basis": "thin",
+      "evidence": "Any mid-sized company in Europe, then widened to enterprises in the same paragraph."
+    },
+    "pain": {
+      "rating": 1,
+      "basis": "thin",
+      "evidence": "Two third-party statistics. Nothing the founder observed or computed."
+    },
+    "existingAttempts": {
+      "rating": 1,
+      "basis": "thin",
+      "evidence": "Various productivity tools. Not one product named."
+    },
+    "limitations": {
+      "rating": 1,
+      "basis": "thin",
+      "evidence": "Legacy and expensive, with no mechanism for why an incumbent cannot close the gap."
+    },
+    "solution": {
+      "rating": 1,
+      "basis": "adequate",
+      "evidence": "An operating system with four modules and no first workflow."
+    },
+    "boundary": {
+      "rating": 0,
+      "basis": "thin",
+      "evidence": "Four modules listed and not one exclusion anywhere. The product only ever adds."
+    },
+    "falsifiable": {
+      "rating": 0,
+      "basis": "thin",
+      "evidence": "Find a co-founder, build an MVP, raise. Three activities he controls, no result the market returns."
+    },
+    "validation": {
+      "rating": 1,
+      "basis": "thin",
+      "evidence": "Thirty positive conversations, a cold waitlist, and competitor funding cited as proof."
+    },
+    "distribution": {
+      "rating": 1,
+      "basis": "thin",
+      "evidence": "A menu of four channels with no first move."
+    },
+    "nextSteps": {
+      "rating": 0,
+      "basis": "thin",
+      "evidence": "Find a CTO, build an MVP, raise. Not one step involves a customer."
+    }
+  },
+  "flags": [
+    "everyone-is-the-icp",
+    "platform-speak",
+    "validation-theatre",
+    "no-boundary",
+    "unfalsifiable"
+  ],
+  "fit": {
+    "status": "in-scope",
+    "reasons": [
+      "B2B, aimed at companies rather than consumers.",
+      "European first market.",
+      "Founder left their job in June and is full time.",
+      "In scope is not the same as good. The scope score is the separate judgement."
+    ]
+  }
+}

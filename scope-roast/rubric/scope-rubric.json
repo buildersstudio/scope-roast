@@ -1,0 +1,153 @@
+{
+  "version": "0.1.0",
+  "house_style": "Judge the scope the way an operator would read it, not the way a pitch competition would. A good scope names a buyer you can picture, a week you can picture, and a cost you can count. Be suspicious of market-size theatre, of AI buzzwords with no workflow underneath them, and of the phrase everyone is a customer. Reward the founder who has lived inside the problem, run the manual version for real people, and can point at the exact handoff that breaks. Concrete nouns, no slideware.",
+  "what_good_looks_like": "A strong scope describes one narrow, recurring, high-stakes workflow, for one sharply named customer, that the founder has personally watched hurt someone. It names the tools already in the room and says precisely where each one stops. It shows evidence a stranger could go and verify: a paid pilot, a signed letter of intent, interviews with direct quotes and the names of who said them, or a version the founder delivered by hand. It ends with a ninety day plan naming real design partners and one metric that decides continue or stop.",
+  "strength_markers": [
+    "Names the customer down to role, company size band, and geography, not SMEs or enterprises.",
+    "Describes a workflow the founder has personally executed or watched weekly, with real artifacts: a spreadsheet, an email thread, a tool they hacked together.",
+    "Quantifies the pain with numbers the founder computed themselves, not a consultancy report pasted in.",
+    "Names the specific tools already in the room and says exactly where each one stops.",
+    "Validation is a paid pilot, a signed letter of intent, a manually delivered version, or interviews with quotes and names attached.",
+    "Next steps read like a ninety day operator plan with named design partners and a success metric.",
+    "The founder has years inside the exact industry, or ran a company that hit this exact wall.",
+    "The solution is a tight wedge into one recurring workflow, not a platform covering everything.",
+    "States what version one deliberately does not do, and names the kill criterion that would end it."
+  ],
+  "weakness_markers": [
+    "The customer is every company with X employees, or all SMEs in Europe. The founder has not picked.",
+    "Stacked buzzwords with no concrete workflow underneath.",
+    "The pain section cites only third party market reports, with no first hand observation.",
+    "Existing attempts lists generic categories rather than named products and their real failure modes.",
+    "Validation is I asked people and they said yes, or a waitlist with no conversion signal.",
+    "Next steps lead with find a technical co-founder or raise funding rather than talk to customers.",
+    "The solution spans three customers and five modules in one paragraph.",
+    "The background is adjacent to the problem rather than inside it.",
+    "Confident prose carrying no checkable fact. Fluency standing in for evidence.",
+    "Nothing is excluded and nothing could fail. The plan only grows and only succeeds."
+  ],
+  "dimensions": {
+    "problem": "Is this worth solving? A high score needs a cost of failure that somebody is accountable for, sized from the bottom up, with at least one number the founder derived themselves.",
+    "customer": "Do you know who, and can you reach them? A high score needs one nameable buyer and a route to the first ten that the founder could start on this week.",
+    "insight": "Do you know something the incumbents do not? A high score needs the founder to name what is in the room today and give the structural reason it stops where it does.",
+    "wedge": "Is the thing you would build bounded? A high score needs one insertion point, an explicit list of what version one does NOT do, and a test with a losing outcome. Evidence asks whether reality has touched the idea. Wedge asks whether there is a bounded thing for reality to touch.",
+    "evidence": "Has reality touched this yet? A high score needs somebody outside the founder's head to have done something that cost them: paid, signed, or handed over their time or data on a recurring basis.",
+    "founder": "Are you the one to do it? A high score needs earned exposure inside the exact workflow, plus a specific moment this problem cost the founder something."
+  },
+  "per_field": {
+    "background": {
+      "strong": "Names the exact roles, companies, and years that put the founder inside this problem, and what they were accountable for.",
+      "weak": "A generic career summary, or experience adjacent to the domain rather than inside it.",
+      "probe": "Which job put you in the room when this problem cost someone money?"
+    },
+    "connection": {
+      "strong": "A dated, specific moment the founder personally felt this problem, with names and consequences.",
+      "weak": "I have always been interested in this space, or a second hand story about someone else.",
+      "probe": "Tell me about the single day this problem hurt you, or hurt someone you were responsible for."
+    },
+    "essential": {
+      "strong": "Explains what breaks downstream when this workflow fails, in money, risk, or time that a named role is accountable for.",
+      "weak": "Asserts that the problem matters without naming who bleeds when it goes wrong.",
+      "probe": "Who gets shouted at when this goes wrong, and what does it cost them?"
+    },
+    "spread": {
+      "strong": "Sizes the affected population from the bottom up: how many companies, how many of that role per company, and how the founder counted.",
+      "weak": "A top down market size figure lifted from a report, with no derivation shown.",
+      "probe": "How many companies have this exact role with this exact problem, and how did you count them?"
+    },
+    "icp": {
+      "strong": "One job title, one company size band, one geography, and the budget line the purchase comes out of.",
+      "weak": "A category rather than a customer: SMEs, enterprises, healthcare, or anyone with this problem.",
+      "probe": "Name the job title, the company size, the country, and whose budget pays."
+    },
+    "pain": {
+      "strong": "Operator level numbers the founder saw first hand: hours per week, error rate, cost per incident, or headcount burnt.",
+      "weak": "Adjectives instead of numbers: huge, painful, massive inefficiency.",
+      "probe": "What does one instance of this problem cost, and where did that number come from?"
+    },
+    "existingAttempts": {
+      "strong": "Names the actual products and workarounds in use today, including the spreadsheet, and shows the founder has used them.",
+      "weak": "Names categories such as CRM software or HR tools, or claims that nothing exists.",
+      "probe": "What are they using right now at nine on a Monday morning, and what does it fail to do?"
+    },
+    "limitations": {
+      "strong": "Explains the structural reason each incumbent stops where it does, not just that it is clunky or expensive.",
+      "weak": "Says existing tools are legacy, expensive, or not AI powered, with no mechanism given.",
+      "probe": "Why can the incumbent not simply add this feature next quarter?"
+    },
+    "solution": {
+      "strong": "One insertion point in one workflow, described concretely enough that you can picture the first screen and the first user's first minute.",
+      "weak": "A platform, an operating system, or an intelligence layer spanning several customers and modules.",
+      "probe": "What is the first screen, for the first user, on the first day?"
+    },
+    "boundary": {
+      "strong": "Names what version one explicitly does NOT do, and says why each exclusion is safe to make. The edge of the product is drawn, not implied.",
+      "weak": "No exclusions anywhere. Every capability is additive, the roadmap only grows, and nothing is ruled out even provisionally.",
+      "probe": "What is the most tempting thing you are deliberately not building first, and what does it cost you to leave it out?"
+    },
+    "falsifiable": {
+      "strong": "A named test with a losing outcome and a date: the metric, the threshold, and what the founder does if it comes back false.",
+      "weak": "Milestones that can only succeed. Build, launch, and grow, with no threshold and nothing that would count as the idea being wrong.",
+      "probe": "What result in the next ninety days would make you stop, and who else would agree that it counted?"
+    },
+    "validation": {
+      "strong": "A paid pilot, a signed letter of intent, a manually delivered version, or interviews with direct quotes and the names of who said them.",
+      "weak": "Enthusiastic conversations, a cold waitlist, or a competitor raising money cited as proof.",
+      "probe": "Who has paid you, signed something, or given you their data, and what is their name?"
+    },
+    "distribution": {
+      "strong": "A specific route to the first ten customers the founder can start on this week, with the reason it works for this buyer.",
+      "weak": "Content marketing, partnerships, and outbound listed as a menu, with no first move.",
+      "probe": "How do you reach customer number one, by name, this month?"
+    },
+    "nextSteps": {
+      "strong": "A ninety day plan with named design partners, a weekly cadence, and one metric that decides continue or stop.",
+      "weak": "Build the MVP, find a co-founder, raise a round.",
+      "probe": "What would have to be true in ninety days for you to keep going, and what would make you stop?"
+    }
+  },
+  "flags": {
+    "validation-theatre": {
+      "detect": "Validation rests on positive conversations, survey responses, a cold waitlist, or competitor funding rounds. No money has moved, nothing has been signed, and no version has been delivered by hand.",
+      "burn_angle": "Nobody has changed their behaviour because of you yet."
+    },
+    "platform-speak": {
+      "detect": "The solution is framed as a platform, an operating system, or an intelligence layer spanning several customers or modules, and no first workflow is named.",
+      "burn_angle": "It sounds sophisticated because it is unfalsifiable. Name the wedge."
+    },
+    "everyone-is-the-icp": {
+      "detect": "The customer is described as all SMEs, any company above a headcount, a whole industry, or several segments at once, including cases where a stated narrow focus is widened again in the same paragraph.",
+      "burn_angle": "You have not picked. Everything downstream of this is guesswork wearing a suit."
+    },
+    "no-boundary": {
+      "detect": "The document never states an exclusion. Nothing is named as out of version one, no capability is deferred, and the product description only ever adds.",
+      "burn_angle": "You have written everything you want to build and nothing you refuse to. That is a wish list with a logo."
+    },
+    "unfalsifiable": {
+      "detect": "No kill criterion, no threshold, no metric with a losing side. Every stated milestone is an activity the founder controls rather than a result the market returns.",
+      "burn_angle": "Nothing here could come back false, which means nothing here can teach you anything."
+    }
+  },
+  "fit": {
+    "what_it_is": "A separate verdict from the score. It answers whether Builders would build this venture, and it never moves the scope score. A sharp scope can be out of scope for Builders, and saying so plainly is more useful than a fudged number.",
+    "thesis": [
+      "AI-native, in the sense that the product does not work without the model, rather than a product with AI added.",
+      "B2B, sold to a business with a budget line, not to a consumer.",
+      "A European customer, with the first market in Europe.",
+      "A founder who is full time on it, or leaving to be full time on it."
+    ],
+    "out_of_scope": [
+      "Consumer and creator products.",
+      "Marketplaces with no defensibility beyond liquidity.",
+      "Wellbeing, engagement, and community platforms.",
+      "Education communities and course businesses.",
+      "Crypto and web3.",
+      "Hardware-heavy plays where the hardware is the product.",
+      "Anything where the founder intends to stay part time, advisory, or fractional."
+    ],
+    "statuses": {
+      "in-scope": "Meets every thesis line and sits in none of the out of scope categories.",
+      "edge": "Meets most of the thesis with one open question, for example the first market is outside Europe but the buyer profile is European, or the AI is central but not yet load bearing.",
+      "out-of-scope": "Sits in an out of scope category, or misses a thesis line in a way no amount of iteration would fix."
+    }
+  }
+}

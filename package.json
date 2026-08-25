@@ -1,0 +1,14 @@
+{
+  "name": "scope-roast",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Reads a venture scope and scores it, inside your own Claude Code session.",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node --test \"tests/**/*.test.mjs\"",
+    "validate": "node scripts/validate.mjs . && node scripts/ai-tells.mjs ."
+  }
+}

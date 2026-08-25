@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{TITLE}}</title>
+<style>{{REPORT_CSS}}</style>
+</head>
+<body>
+<div class="wrap">
+
+<p class="label">Scope roast, evidence not vibes</p>
+<h1>{{TITLE}}</h1>
+
+<div class="verdict">
+  <p class="label">Scope score</p>
+  <p class="total">{{TOTAL}}<span>/100</span></p>
+  <p class="band">{{BAND_LABEL}}</p>
+  <p>{{HEADLINE}}</p>
+  {{PROVISIONAL_BADGE}}
+</div>
+
+{{COVERAGE}}
+
+{{CAP_BLOCK}}
+
+<h2>The six dimensions</h2>
+<p class="sub">The score is the weighted mean of these. Evidence carries the most, wedge is right behind it.</p>
+{{DIMENSIONS}}
+
+<h2>Would Builders build it</h2>
+<p class="sub">A separate question from the score, and it does not change the score.</p>
+{{FIT}}
+
+<h2>Where it falls over</h2>
+<p class="sub">Founders who would rather prove it than pitch it.</p>
+{{BURNS}}
+
+<h2>What is actually working</h2>
+<ul class="plain">
+{{STRENGTHS}}
+</ul>
+
+<h2>Fix these first</h2>
+<p class="sub">Ranked by how many scope points are genuinely recoverable, not by opinion.</p>
+<div class="overflow">
+<table>
+<thead><tr><th>Field</th><th>Now</th><th class="num">Points back</th></tr></thead>
+<tbody>
+{{FIXES}}
+</tbody>
+</table>
+</div>
+
+{{REWRITE}}
+
+<h2>All fourteen, in detail</h2>
+<div class="overflow">
+<table>
+<thead><tr><th>Field</th><th>Basis</th><th class="num">Rating</th><th class="num">Weight</th></tr></thead>
+<tbody>
+{{RATINGS}}
+</tbody>
+</table>
+</div>
+
+<footer>
+  <p>You can check the maths yourself. The opinions are ours, and you are welcome to argue with those. Neither is a funding decision.</p>
+  <p class="sig">Bold founders, stellar companies.</p>
+</footer>
+
+</div>
+</body>
+</html>

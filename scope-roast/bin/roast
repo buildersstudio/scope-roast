@@ -1,0 +1,34 @@
+#!/bin/sh
+# Entry point for the scope-roast scripts. Resolves its own real location, so
+# it works whether it is called by relative path, by absolute path, or through
+# the symlink that `install` drops into a project's .claude/skills.
+#
+#   roast score  scores.json          prints the scored result as JSON
+#   roast render payload.json out.html
+
+set -eu
+
+# Resolve $0 through any chain of symlinks without relying on readlink -f,
+# which is missing or different on older macOS.
+target=$0
+while [ -L "$target" ]; do
+  link=$(readlink -- "$target")
+  case $link in
+    /*) target=$link ;;
+    *)  target=$(dirname -- "$target")/$link ;;
+  esac
+done
+BIN=$(CDPATH= cd -- "$(dirname -- "$target")" && pwd)
+
+cmd=${1:-}
+shift 2>/dev/null || true
+
+case "$cmd" in
+  score)  exec node "$BIN/score.mjs" "$@" ;;
+  render) exec node "$BIN/render.mjs" "$@" ;;
+  *)
+    echo "usage: roast score <scores.json>" >&2
+    echo "       roast render <payload.json> <out.html>" >&2
+    exit 2
+    ;;
+esac

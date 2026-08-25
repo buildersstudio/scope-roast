@@ -1,0 +1,64 @@
+#!/bin/sh
+# Installs every tool in this repo into a Claude Code project's .claude/skills.
+# Symlinks rather than copies, so `git pull` here updates every project at once.
+#
+#   ./install                 install into the current directory
+#   ./install /path/to/proj   install into another project
+#   ./install --uninstall [path]
+
+set -eu
+
+SELF_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+UNINSTALL=0
+
+if [ "${1:-}" = "--uninstall" ]; then
+  UNINSTALL=1
+  shift
+fi
+
+TARGET=${1:-$PWD}
+if [ ! -d "$TARGET" ]; then
+  echo "install: not a directory: $TARGET" >&2
+  exit 1
+fi
+TARGET=$(CDPATH= cd -- "$TARGET" && pwd)
+
+SKILLS_DIR="$TARGET/.claude/skills"
+COUNT=0
+
+for skill_file in "$SELF_DIR"/*/SKILL.md; do
+  [ -e "$skill_file" ] || continue
+  tool_dir=$(dirname -- "$skill_file")
+  tool_name=$(basename -- "$tool_dir")
+  link="$SKILLS_DIR/$tool_name"
+
+  if [ "$UNINSTALL" = "1" ]; then
+    if [ -L "$link" ]; then
+      rm -- "$link"
+      echo "removed $tool_name"
+      COUNT=$((COUNT + 1))
+    fi
+    continue
+  fi
+
+  mkdir -p -- "$SKILLS_DIR"
+
+  # Never clobber something the user put there by hand.
+  if [ -e "$link" ] && [ ! -L "$link" ]; then
+    echo "install: $link exists and is not a symlink, leaving it alone" >&2
+    continue
+  fi
+
+  rm -f -- "$link"
+  ln -s -- "$tool_dir" "$link"
+  echo "linked $tool_name"
+  COUNT=$((COUNT + 1))
+done
+
+if [ "$UNINSTALL" = "1" ]; then
+  echo "removed $COUNT tool(s) from $TARGET"
+else
+  echo "installed $COUNT tool(s) into $TARGET"
+  echo ""
+  echo "Restart Claude Code in that project, then say: roast my scope"
+fi

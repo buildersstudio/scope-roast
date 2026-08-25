@@ -1,0 +1,11 @@
+node_modules/
+.DS_Store
+out/
+*.local.*
+
+# Scratch design exploration. Artboards, generators, and 2.4MB of inlined assets.
+design/
+
+# Eval corpus. Contains third-party website copy and judgements of named real
+# companies. Never ships.
+evals/

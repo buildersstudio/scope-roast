@@ -1,0 +1,84 @@
+{
+  "fields": {
+    "background": {
+      "rating": 5,
+      "basis": "rich",
+      "evidence": "Named company, named role, six years, and the exact scope of what he owned."
+    },
+    "connection": {
+      "rating": 5,
+      "basis": "rich",
+      "evidence": "Dated incident, a euro figure, and a personal consequence he had to carry."
+    },
+    "essential": {
+      "rating": 4,
+      "basis": "adequate",
+      "evidence": "Cost of failure is clear and attributed. Downstream risk beyond money is not developed."
+    },
+    "spread": {
+      "rating": 3,
+      "basis": "thin",
+      "evidence": "Segment is described but the number of companies in it is never derived."
+    },
+    "icp": {
+      "rating": 5,
+      "basis": "rich",
+      "evidence": "Role, geography, staff band, shipment volume, and the budget line it comes out of."
+    },
+    "pain": {
+      "rating": 5,
+      "basis": "rich",
+      "evidence": "Hours, error rate, average value, monthly total, and fourteen months of his own tracking."
+    },
+    "existingAttempts": {
+      "rating": 5,
+      "basis": "rich",
+      "evidence": "Names CargoWise and Transporeon, the Excel fallback, and the offshore bookkeeper workaround."
+    },
+    "limitations": {
+      "rating": 5,
+      "basis": "rich",
+      "evidence": "Structural reason the incumbents stop, plus why they have no incentive to fix it."
+    },
+    "solution": {
+      "rating": 4,
+      "basis": "adequate",
+      "evidence": "One screen, one job, explicitly nothing else in v1. Vague on how the matching itself works."
+    },
+    "boundary": {
+      "rating": 5,
+      "basis": "rich",
+      "evidence": "Nothing else in version one, stated outright. The scan-matching case is in, everything adjacent is deferred."
+    },
+    "falsifiable": {
+      "rating": 5,
+      "basis": "rich",
+      "evidence": "If fewer than two of three pilots convert by December, he stops and re-scopes. Named threshold, named date, losing outcome."
+    },
+    "validation": {
+      "rating": 5,
+      "basis": "rich",
+      "evidence": "Three signed paid pilots by name, a manually delivered version, and fourteen interviews."
+    },
+    "distribution": {
+      "rating": 4,
+      "basis": "adequate",
+      "evidence": "Named network and a specific channel, but no first target named."
+    },
+    "nextSteps": {
+      "rating": 5,
+      "basis": "rich",
+      "evidence": "Dated, priced, named partners, and an explicit kill criterion."
+    }
+  },
+  "flags": [],
+  "fit": {
+    "status": "in-scope",
+    "reasons": [
+      "B2B, sold to a freight operations manager with a finance director holding the budget.",
+      "First market is the Netherlands and Belgium.",
+      "Founder is full time on it.",
+      "The document extraction and matching is the product, not a feature bolted on."
+    ]
+  }
+}

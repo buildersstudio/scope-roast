@@ -1,0 +1,83 @@
+{
+  "fields": {
+    "background": {
+      "rating": 3,
+      "basis": "adequate",
+      "evidence": "Real adjacent craft in health product design, but she is not a care professional and says so."
+    },
+    "connection": {
+      "rating": 5,
+      "basis": "rich",
+      "evidence": "Nineteen months coordinating her own mother's care, with a dated medication incident."
+    },
+    "essential": {
+      "rating": 5,
+      "basis": "rich",
+      "evidence": "A double dose of blood pressure medication. The cost of failure is somebody's health."
+    },
+    "spread": {
+      "rating": 3,
+      "basis": "thin",
+      "evidence": "Forty families she ran manually, but no bottom-up count of the addressable population."
+    },
+    "icp": {
+      "rating": 4,
+      "basis": "adequate",
+      "evidence": "Age band, country, relationship, care setting, and the exact window between diagnosis and residential care."
+    },
+    "pain": {
+      "rating": 4,
+      "basis": "adequate",
+      "evidence": "Her own logged hours plus the median across 40 families, but the money cost is never stated."
+    },
+    "existingAttempts": {
+      "rating": 4,
+      "basis": "adequate",
+      "evidence": "Names Jointly, notes CareZone shut down, and identifies WhatsApp plus the kitchen diary as the real incumbent."
+    },
+    "limitations": {
+      "rating": 4,
+      "basis": "adequate",
+      "evidence": "Names the structural flaw, that shared containers depend on the most exhausted person keeping them fed."
+    },
+    "solution": {
+      "rating": 5,
+      "basis": "rich",
+      "evidence": "One insertion point, no new app for the carers, and you can picture the first interaction."
+    },
+    "boundary": {
+      "rating": 4,
+      "basis": "adequate",
+      "evidence": "No new app for the carers is an explicit exclusion, and a real one. Does not say what else is deferred."
+    },
+    "falsifiable": {
+      "rating": 5,
+      "basis": "rich",
+      "evidence": "Retention below 55 percent at month six kills it. Threshold, metric, and a stated consequence."
+    },
+    "validation": {
+      "rating": 5,
+      "basis": "rich",
+      "evidence": "340 paying subscribers, 71 percent month-six retention, and five months delivered by hand first."
+    },
+    "distribution": {
+      "rating": 3,
+      "basis": "adequate",
+      "evidence": "Named communities she is already inside, and two inbound services, but no first named target."
+    },
+    "nextSteps": {
+      "rating": 4,
+      "basis": "adequate",
+      "evidence": "A dated referral goal and a retention kill criterion. Light on the sequencing."
+    }
+  },
+  "flags": [],
+  "fit": {
+    "status": "out-of-scope",
+    "reasons": [
+      "Consumer product, sold to an individual at 9 pounds a month, not to a business with a budget line.",
+      "The Admiral Nurse referral route is a channel, not a B2B buyer.",
+      "Everything else in the thesis is met: European first market, full time founder, AI is load bearing."
+    ]
+  }
+}

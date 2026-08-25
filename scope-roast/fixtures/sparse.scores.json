@@ -1,0 +1,74 @@
+{
+  "fields": {
+    "background": {
+      "rating": 4,
+      "basis": "adequate",
+      "evidence": "Three years as a pharmacy technician at a named hospital, on the shift where the problem lives."
+    },
+    "connection": {
+      "rating": 3,
+      "basis": "thin",
+      "evidence": "Saw it constantly on evening shifts, but no single incident and no consequence named."
+    },
+    "essential": {
+      "basis": "absent",
+      "evidence": "Never says what breaks downstream when reconciliation is wrong."
+    },
+    "spread": {
+      "basis": "absent",
+      "evidence": "No sizing of any kind."
+    },
+    "icp": {
+      "basis": "absent",
+      "evidence": "Explicitly states they do not know who buys it."
+    },
+    "pain": {
+      "basis": "absent",
+      "evidence": "Explicitly states they do not know what it is worth. No hours, no cost, no volume."
+    },
+    "existingAttempts": {
+      "basis": "absent",
+      "evidence": "No mention of what pharmacy teams use today."
+    },
+    "limitations": {
+      "basis": "absent",
+      "evidence": "Nothing, since no incumbent is named."
+    },
+    "solution": {
+      "rating": 4,
+      "basis": "adequate",
+      "evidence": "One insertion point, the returns trolley, before the dispensary. You can picture it."
+    },
+    "boundary": {
+      "basis": "absent",
+      "evidence": "Never says what the first version leaves out."
+    },
+    "falsifiable": {
+      "basis": "absent",
+      "evidence": "No threshold, no date, nothing that could come back false."
+    },
+    "validation": {
+      "basis": "absent",
+      "evidence": "None claimed. To their credit they do not pretend otherwise."
+    },
+    "distribution": {
+      "basis": "absent",
+      "evidence": "Nothing."
+    },
+    "nextSteps": {
+      "rating": 1,
+      "basis": "thin",
+      "evidence": "Talk to more people, with no number, no names, and no deadline."
+    }
+  },
+  "flags": [],
+  "fit": {
+    "status": "in-scope",
+    "reasons": [
+      "B2B, sold into a hospital pharmacy department.",
+      "The vision model is the product, not a feature.",
+      "UK first market.",
+      "Full time status is not stated in the source, so this is provisional on that."
+    ]
+  }
+}
