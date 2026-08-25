@@ -28,16 +28,14 @@ export function findDashViolations(text) {
 
 const SHIPPED_EXT = new Set(['.md', '.json', '.html', '.css'])
 // 'design' is the scratch design workspace, not shipped tool content.
-const SKIP_DIRS = new Set(['node_modules', '.git', 'out', 'tests', 'design'])
-
-// Verbatim third-party copy. Rewriting its punctuation would corrupt the
-// eval input, so the copy rule stops at the door.
-const SKIP_PATHS = new Set(['evals/sources'])
+// Everything else in the repo is shipped, so everything else is checked.
+// Scratch work lives outside this folder on purpose, which is why there is
+// nothing here to make an exception for.
+const SKIP_DIRS = new Set(['node_modules', '.git', 'out', 'tests'])
 
 function walk(dir, out = []) {
   for (const entry of readdirSync(dir)) {
     if (SKIP_DIRS.has(entry)) continue
-    if ([...SKIP_PATHS].some((p) => join(dir, entry).endsWith(p))) continue
     const full = join(dir, entry)
     if (statSync(full).isDirectory()) walk(full, out)
     else out.push(full)
