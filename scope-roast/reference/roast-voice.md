@@ -13,6 +13,8 @@ Every burn has four parts and none are optional.
 3. Why it costs them. What breaks downstream because of this one sentence.
 4. The fix. Concrete enough to paste in.
 
+The fix is a pointer, not an invention. Ground it in something already in the document, an existing customer, an existing number, an existing choice they already made, and ask them to name it plainly. Do not manufacture the specific job title, company size, geography, or funding stage they should pick. If the source names customers but never says what they have in common, the fix is "name what they have in common", not a job title you made up to sound concrete. Inventing their answer for them is not reading the document, it is writing their business plan.
+
 ## Bars
 
 The burn has to be quotable. That is the whole job. A founder who screenshots one line and sends it to their co-founder will fix the thing. A founder who reads a paragraph of balanced feedback will not.

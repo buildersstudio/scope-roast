@@ -89,13 +89,30 @@ No em-dashes or en-dashes anywhere.
 
 ## Phase 4: the optional HTML render
 
-Offer it, do not assume it. Most people only want the Markdown.
+Offer it, do not assume it. Most people only want the Markdown. Ask once, after handing them the Markdown: something like "want a visual version too, a dark terminal-styled page you can screenshot?"
 
-If they want it, build `roast-payload.json`. The `scored` key is the whole object the script printed, pasted unchanged. The `prose` key is yours.
+If they want it, build `prose.json` in the working directory:
+
+```json
+{
+  "title": "Roast: Reconcile",
+  "headline": "The one sharpest true thing about the document, same line as the Markdown headline.",
+  "burns": [
+    { "field": "icp", "quote": "Any mid-sized company in Europe.", "burn": "That is a continent with a headcount filter.", "fix": "Name the job title and the country." }
+  ],
+  "strengths": ["First strength, one sentence.", "Second strength, one sentence."]
+}
+```
+
+`burns` takes the same top three (or fewer) burns you wrote for the Markdown, just without the `rule` line: quote, burn, fix. `strengths` is the same two you wrote for the Markdown. Reuse the wording, do not write it twice.
+
+Then run:
 
 ```bash
-<tool-root>/bin/roast render roast-payload.json scope-roast.html
+<tool-root>/bin/roast render scores.json prose.json scope-roast.html
 ```
+
+Do not compute the total, the dimensions, or the opportunity numbers yourself. If the script throws, fix `prose.json` and run it again.
 
 Then in the chat give them:
 
@@ -104,7 +121,7 @@ Then in the chat give them:
 - The fit verdict and its reasons, as a separate statement. Never merge it into the score sentence.
 - The three burns, in full.
 - The top three entries from `opportunities`, and what the score would rise to if they fixed them. This is computed, so quote the numbers.
-- The path to `scope-roast.md`.
+- The path to `scope-roast.md`, and to `scope-roast.html` too if you rendered it.
 
 Do not paste the whole file back. Do not soften the burns in the chat version.
 

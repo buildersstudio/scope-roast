@@ -83,7 +83,7 @@ A Markdown file, `scope-roast.md`, written next to your work. In it:
 - **Three burns.** Each quotes your own document, names what it breaks, and gives you the fix. Sharp on purpose. Never about you, always about the writing.
 - **A Builders fit verdict**, separate from the score. A consumer product with a sharp scope scores high and comes back out of scope, because those are two different questions.
 
-An HTML version is optional. Ask for it and you get a self-contained file that opens from disk.
+An HTML version is optional. Ask for it and you get `scope-roast.html`, a dark terminal-styled render of the same numbers with a light and dark toggle, self-contained and opens from disk with no network.
 
 You can check every number. The opinions are the tool's and you are welcome to argue with them. Neither is a funding decision: it reads a document and tells you how good it is.
 
