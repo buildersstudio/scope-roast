@@ -154,13 +154,20 @@ export const FLAGS = Object.freeze({
  * These judge the SCOPE: how well defined, bounded and evidenced the proposal
  * is. They are deliberately not investment language. This tool reads a
  * document, so the verdict is about the document.
+ *
+ * Every label is a statement about the document, never about where the
+ * founder is in their process. "You have not tested it" and "go test it now"
+ * describe the person's flow, and `development` already reports that far
+ * better, with counts. Two places saying the same thing in different words is
+ * what makes a report feel automated, and the label loses either way: it is
+ * the one line that has to say how good the writing is.
  */
 export const BANDS = Object.freeze([
   { min: 0, max: 39, key: 'not-a-scope', label: 'There is no scope here yet', verdict: 'Right now this is a subject you find interesting. Nobody reading it could tell me what you would build, who for, or what would make you stop.' },
   { min: 40, max: 54, key: 'sketch', label: 'Still an idea', verdict: 'The shape is there. Almost every line is you saying so, and none of it has an edge on it yet.' },
-  { min: 55, max: 69, key: 'unevidenced', label: 'You have said it, you have not tested it', verdict: 'I can tell what the thing is. Nothing outside your own head has touched it yet, so neither of us knows if you got it right.' },
+  { min: 55, max: 69, key: 'unevidenced', label: 'Clear, and unproven', verdict: 'I can tell what the thing is. Nothing outside your own head has touched it yet, so neither of us knows if you got it right.' },
   { min: 70, max: 84, key: 'sharp', label: 'It holds up', verdict: 'I read it closely and it did not fall apart. What is thin is proof, not thinking.' },
-  { min: 85, max: 100, key: 'airtight', label: 'Stop writing, go test it', verdict: 'Anyone arguing with this would be arguing with the plan, not with the scope. There is nothing left to write.' },
+  { min: 85, max: 100, key: 'airtight', label: 'Nothing left to write', verdict: 'Anyone arguing with this would be arguing with the plan, not with the scope. There is nothing left to write.' },
 ])
 
 /** The only permitted fit verdicts. */
