@@ -27,10 +27,8 @@ export function findDashViolations(text) {
 }
 
 const SHIPPED_EXT = new Set(['.md', '.json', '.html', '.css'])
-// 'design' is the scratch design workspace, not shipped tool content.
-// Everything else in the repo is shipped, so everything else is checked.
-// Scratch work lives outside this folder on purpose, which is why there is
-// nothing here to make an exception for.
+// Everything in this repo is shipped, so everything in it is checked. There
+// are no exceptions to maintain and no list to keep in step.
 const SKIP_DIRS = new Set(['node_modules', '.git', 'out', 'tests'])
 
 function walk(dir, out = []) {

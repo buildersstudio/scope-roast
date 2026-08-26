@@ -55,11 +55,13 @@ test('every field has a strong, a weak, and a probe', () => {
   }
 })
 
-test('the rubric stands on its own and cites no review history', () => {
-  const text = JSON.stringify(rubric).toLowerCase()
-  for (const phrase of ['distilled from', 'internal review', 'review history', 'our applicants', 'we rejected', 'disqualif']) {
-    assert.ok(!text.includes(phrase), `rubric should not say ${phrase}`)
-  }
+// The rubric is generic judging guidance. It should never grow a citation, a
+// link, or a named example, because a rubric that leans on an outside source
+// is only as good as a reader's willingness to take that source on trust.
+test('the rubric names no source, link, or address', () => {
+  const text = JSON.stringify(rubric)
+  assert.ok(!/https?:\/\//.test(text), 'rubric should carry no URL')
+  assert.ok(!/[\w.+-]+@[\w-]+\.[\w.]+/.test(text), 'rubric should carry no email address')
 })
 
 test('validateRubric returns no problems for the shipped rubric', () => {

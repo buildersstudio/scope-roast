@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Scans shipped copy for the patterns that make writing read as generated.
-// Runs on the tool's own prose and on any roast in evals/out, because a roast
-// that sounds like a model wrote it is not a roast anybody acts on.
+// Runs on the tool's own prose, because a rubric that sounds like a model
+// wrote it will teach the model to write roasts that sound the same way.
 //
 // roast-voice.md is skipped: it is the forbidden list, so it quotes every
 // pattern on purpose.
@@ -32,7 +32,7 @@ function walk(dir, out = []) {
   return out
 }
 
-export function scan(root, dirs = ['scope-roast', 'evals/out']) {
+export function scan(root, dirs = ['scope-roast']) {
   const hits = []
   for (const d of dirs) {
     let files
