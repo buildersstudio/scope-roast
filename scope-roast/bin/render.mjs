@@ -1,14 +1,18 @@
 #!/usr/bin/env node
-// Turns a scored result plus the model's prose into one self-contained HTML
-// file. No chart library, no fonts fetched, no network at all: the report has
-// to open from a founder's disk on a train.
+// Turns the deterministic scores plus the model's prose into one
+// self-contained HTML file. No chart library, no fonts fetched, no network
+// at all: the report has to open from a founder's disk on a train.
 //
-// This file never computes a score. Everything numeric arrives in `scored`.
+// This file never invents a score. The one number it computes beyond what
+// `score()` already returned is an "after" preview for the write-these-first
+// list (what the total would be if one field went to 5 of 5), and that
+// preview is produced by calling the same pure `score()` function on a copy
+// of the original input, never approximated by hand.
 
 import { readFileSync, writeFileSync } from 'node:fs'
 import { join, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { FIELD_SCOPE_WEIGHT } from './score.mjs'
+import { score } from './score.mjs'
 
 const HERE = dirname(fileURLToPath(import.meta.url))
 const TOOL = join(HERE, '..')
@@ -31,16 +35,21 @@ const FIELD_LABELS = {
   nextSteps: 'Next steps',
 }
 
-const FIT_LABELS = {
-  'in-scope': 'In scope',
-  edge: 'On the edge',
-  'out-of-scope': 'Out of scope',
+const DIM_COLOR = {
+  problem: 'var(--amber)',
+  customer: 'var(--cyan)',
+  insight: 'var(--violet)',
+  wedge: 'var(--gold)',
+  evidence: 'var(--emerald)',
+  founder: 'var(--rose)',
 }
 
-const FIT_BLURB = {
-  'in-scope': 'This sits inside what Builders builds.',
-  edge: 'Most of the thesis is met, with one open question.',
-  'out-of-scope': 'Builders would not build this. That is a statement about Builders, not about the scope.',
+const FIT_LABELS = { 'in-scope': 'In scope', edge: 'Edge', 'out-of-scope': 'Out of scope' }
+const FIT_COLOR = { 'in-scope': 'var(--emerald)', edge: 'var(--amber)', 'out-of-scope': 'var(--rose)' }
+const FIT_BG = {
+  'in-scope': 'rgba(0,255,160,0.07)',
+  edge: 'rgba(255,179,71,0.07)',
+  'out-of-scope': 'rgba(255,61,158,0.07)',
 }
 
 const label = (f) => FIELD_LABELS[f] || f
@@ -62,184 +71,175 @@ function requireProse(prose, key) {
   return v
 }
 
-/** Red under 40, amber under 70, green above. */
-const tone = (pct) => (pct < 40 ? 'lo' : pct < 70 ? 'mid' : 'hi')
+/** Emerald at 70 and up, amber from 40, rose below. Matches the band edges. */
+const tone = (total) => (total >= 70 ? 'var(--emerald)' : total >= 40 ? 'var(--amber)' : 'var(--rose)')
 
-function barRow({ name, note, pct, value, na = false }) {
-  const fill = na ? '' : `<div class="bar-fill ${tone(pct)}" style="width:${pct}%"></div>`
-  return [
-    `  <div class="bar-row${na ? ' na' : ''}">`,
-    `    <div class="bar-name"><b>${escapeHtml(name)}</b>${note ? `<small>${escapeHtml(note)}</small>` : ''}</div>`,
-    `    <div class="bar-track">${fill}</div>`,
-    `    <div class="bar-value">${escapeHtml(value)}</div>`,
-    '  </div>',
-  ].join('\n')
-}
-
-function renderDimensions(dimensions) {
-  return dimensions
-    .map((d) => {
-      if (d.score === null) {
-        return barRow({
-          name: d.label,
-          note: `${d.question} Nothing written on ${d.unassessed.map(label).join(' or ')}.`,
-          pct: 0,
-          value: 'not assessed',
-          na: true,
-        })
-      }
-      // A reading taken without its anchor field has to say so, or it prints
-      // like a firm score while standing on the light fields alone.
-      const note = d.partial
-        ? `Partial: ${d.unassessed.map(label).join(' and ')} never written${d.anchorAssessed ? '' : ', including the anchor'}.`
-        : `${d.question} Worth ${d.weight} of 100.`
-      return barRow({
-        name: d.label,
-        note,
-        pct: d.score,
-        value: d.partial ? `${d.score}*` : `${d.score}`,
-      })
-    })
-    .join('\n')
-}
-
-function renderRatings(scored) {
-  return scored.dimensions
-    .flatMap((d) => d.fields)
-    .map((f) => {
-      const weight = FIELD_SCOPE_WEIGHT[f.field].toFixed(1)
-      const rating = f.assessed ? `${f.rating}/5` : 'not written'
-      return `  <tr><td>${escapeHtml(label(f.field))}${f.anchor ? ' <span class="pill">anchor</span>' : ''}</td><td>${escapeHtml(f.basis)}</td><td class="num">${rating}</td><td class="num">${weight}</td></tr>`
-    })
-    .join('\n')
-}
-
-function renderFixes(opportunities) {
-  if (opportunities.length === 0) {
-    return '  <tr><td colspan="3">Nothing left on the table. Every field is at five.</td></tr>'
+function rubricVersion() {
+  try {
+    const rubric = JSON.parse(readFileSync(join(TOOL, 'rubric', 'scope-rubric.json'), 'utf8'))
+    return `v${rubric.version}`
+  } catch {
+    return 'unknown'
   }
-  return opportunities
-    .map((o) => {
-      const now = o.unwritten
-        ? '<span class="pill unwritten">not written</span>'
-        : `<span class="pill">${o.rating}/5</span>`
-      return `  <tr><td>${escapeHtml(label(o.field))}</td><td>${now}</td><td class="num">+${o.recoverable.toFixed(1)}</td></tr>`
+}
+
+/** The gauge is a fixed semicircle; only the fill's colour and length change. */
+function gaugeSvg(total, band) {
+  const color = tone(total)
+  const dash = ((total / 100) * 282.74).toFixed(1)
+  return [
+    '<svg viewBox="0 0 220 122">',
+    '<g stroke="var(--tg)" stroke-width="1" opacity="0.8">',
+    '<line x1="14" y1="112" x2="4" y2="112"/><line x1="35" y1="49" x2="27" y2="42"/>',
+    '<line x1="110" y1="16" x2="110" y2="6"/><line x1="185" y1="49" x2="193" y2="42"/>',
+    '<line x1="206" y1="112" x2="216" y2="112"/>',
+    '</g>',
+    '<path d="M 20 112 A 90 90 0 0 1 200 112" fill="none" stroke="var(--tg)" stroke-opacity="0.3" stroke-width="3" stroke-dasharray="1 5" stroke-linecap="round"/>',
+    `<path d="M 20 112 A 90 90 0 0 1 200 112" fill="none" stroke="${color}" stroke-width="9" stroke-linecap="round" stroke-dasharray="${dash} 282.74" style="filter:drop-shadow(0 0 7px ${color})"/>`,
+    '</svg>',
+    '<div class="gauge-readout">',
+    `<div class="gauge-total">${total}</div>`,
+    `<div class="gauge-band" style="color:${color}">${escapeHtml(band)}</div>`,
+    '</div>',
+  ].join('')
+}
+
+function renderDimensionRows(dimensions) {
+  const rows = dimensions
+    .map((d) => {
+      const assessed = d.score !== null
+      const scoreDisp = assessed ? String(d.score) + (d.partial ? '*' : '') : '&mdash;'
+      const width = assessed ? d.score : 0
+      const opacity = assessed ? 1 : 0.35
+      return [
+        `  <div class="dim-row" style="opacity:${opacity}">`,
+        `    <div class="dim-label">${escapeHtml(d.label)}</div>`,
+        `    <div class="segtrack"><div class="fill" style="width:${width}%;background:${DIM_COLOR[d.key]};box-shadow:0 0 8px ${DIM_COLOR[d.key]}"></div></div>`,
+        `    <div class="dim-score">${scoreDisp}</div>`,
+        `    <div class="dim-weight">&times;${d.weight}%</div>`,
+        '  </div>',
+      ].join('\n')
     })
     .join('\n')
+  const partial = dimensions.filter((d) => d.partial).map((d) => d.label)
+  const note = partial.length
+    ? `<div class="dims-note">* anchor field unwritten: ${escapeHtml(partial.join(', '))}</div>`
+    : ''
+  return { rows, note }
 }
 
-function renderCoverage(coverage) {
-  const { percent, confidence, assessedCount, totalCount, unassessed } = coverage
-  const low = confidence !== 'firm'
-  const gaps = unassessed.length
-    ? `<p class="gaps">Never covered: ${unassessed.map((f) => `<code>${escapeHtml(label(f))}</code>`).join(' ')}</p>`
-    : '<p class="gaps">Every field was covered, so the score stands on the whole picture.</p>'
-  const line = low
-    ? `Only ${assessedCount} of ${totalCount} fields could be assessed, so this score is provisional. Write the gaps below and run it again.`
-    : `${assessedCount} of ${totalCount} fields assessed. Enough to stand behind the number.`
-  return [
-    `<div class="coverage${low ? ' low' : ''}">`,
-    '  <p class="label">Coverage</p>',
-    `  <p style="margin:6px 0 0"><b>${percent}% of the venture could be judged.</b> ${escapeHtml(line)}</p>`,
-    `  <div class="cov-track"><div class="cov-fill" style="width:${percent}%"></div></div>`,
-    `  ${gaps}`,
-    '</div>',
-  ].join('\n')
-}
-
-function renderFit(fit) {
-  return [
-    `<div class="fit ${escapeHtml(fit.status)}">`,
-    `  <p class="fit-status">${escapeHtml(FIT_LABELS[fit.status] || fit.status)}</p>`,
-    `  <p class="sub">${escapeHtml(FIT_BLURB[fit.status] || '')}</p>`,
-    '  <ul>',
-    fit.reasons.map((r) => `    <li>${escapeHtml(r)}</li>`).join('\n'),
-    '  </ul>',
-    '</div>',
-  ].join('\n')
-}
-
-function renderCap(cappedBy, base) {
+function renderCapLine(cappedBy, base) {
   if (!cappedBy) return ''
-  return [
-    '<div class="cap">',
-    `  <p><strong>${escapeHtml(cappedBy.label)}.</strong> The dimensions came to ${base}, and this caps the score at ${cappedBy.cap}.</p>`,
-    `  <p>${escapeHtml(cappedBy.why)}</p>`,
-    '</div>',
-  ].join('\n')
+  return `<div class="cap-line">capped at ${cappedBy.cap}, ${escapeHtml(cappedBy.label.toLowerCase())} (raw ${base})</div>`
+}
+
+function renderStrengths(strengths) {
+  const items = strengths.map((s) => `    <div class="item"><span class="dot">&middot;</span>${escapeHtml(s)}</div>`).join('\n')
+  return `<div class="strengths-line">\n${items}\n</div>`
 }
 
 function renderBurns(burns) {
+  if (burns.length === 0) return ''
   return burns
-    .map((b) =>
-      [
+    .map((b, i) => {
+      const absent = b.quote.trim() === 'Nothing in the document.'
+      const quoteClass = absent ? 'absent' : 'present'
+      return [
         '<div class="burn">',
-        `  <h3>${escapeHtml(label(b.field))}</h3>`,
-        `  <blockquote>${escapeHtml(b.quote)}</blockquote>`,
-        `  <p>${escapeHtml(b.burn)}</p>`,
-        `  <p class="rule">Breaks: ${escapeHtml(b.rule)}</p>`,
-        '  <div class="fix">',
-        '    <p class="label">Fix</p>',
-        `    <p>${escapeHtml(b.fix)}</p>`,
+        `  <div class="burn-num">0${i + 1}</div>`,
+        '  <div class="burn-body">',
+        `    <div class="burn-field">${escapeHtml(label(b.field))}</div>`,
+        `    <div class="burn-quote ${quoteClass}"><span class="chevron">&gt; </span>${escapeHtml(b.quote)}</div>`,
+        `    <p class="burn-text">${escapeHtml(b.burn)}</p>`,
+        `    <div class="burn-fix"><span class="label">fix &rarr;</span> ${escapeHtml(b.fix)}</div>`,
         '  </div>',
         '</div>',
       ].join('\n')
-    )
+    })
     .join('\n')
 }
 
-function renderRewrite(rewrite) {
-  if (!rewrite) return ''
-  return [
-    '<h2>Your highest value field, rewritten</h2>',
-    '<p class="sub">Using only facts already in your document. Bracketed slots are the ones you have not given me.</p>',
-    '<div class="rewrite">',
-    '  <div class="col">',
-    `    <p class="label">What you wrote, ${escapeHtml(label(rewrite.field))}</p>`,
-    `    <p>${escapeHtml(rewrite.before)}</p>`,
-    '  </div>',
-    '  <div class="col after">',
-    '    <p class="label">What it should say</p>',
-    `    <p>${escapeHtml(rewrite.after)}</p>`,
-    '  </div>',
-    '</div>',
-  ].join('\n')
+/**
+ * Re-scores the original input with one field bumped to 5 of 5, so the
+ * "after" number in the write-these-first list is exact, not estimated.
+ */
+function afterFixing(scoresInput, field) {
+  const existing = scoresInput.fields?.[field]
+  const clone = {
+    ...scoresInput,
+    fields: {
+      ...scoresInput.fields,
+      [field]: { rating: 5, basis: existing && existing.basis !== 'absent' ? existing.basis : 'adequate', evidence: existing?.evidence || '' },
+    },
+  }
+  return score(clone).scope.total
+}
+
+function renderOpportunities(scoresInput, scored) {
+  const total = scored.scope.total
+  const top = scored.opportunities
+    .slice(0, 3)
+    .map((o) => ({ ...o, after: afterFixing(scoresInput, o.field) }))
+    .map((o) => ({ ...o, gain: o.after - total }))
+    .filter((o) => o.gain > 0)
+
+  if (top.length === 0) {
+    return '  <p class="opps-empty">Nothing left on the table. Every part is at five.</p>'
+  }
+
+  const maxGain = Math.max(...top.map((o) => o.gain))
+  return top
+    .map((o) => {
+      const pct = Math.round((o.gain / maxGain) * 100)
+      return [
+        '  <div class="opp-row">',
+        `    <div class="opp-label">${escapeHtml(label(o.field))}</div>`,
+        `    <div class="segtrack"><div class="fill" style="width:${pct}%;background:var(--cyan);box-shadow:0 0 8px var(--cyan)"></div></div>`,
+        `    <div class="opp-gain">+${o.gain} &rarr; ${o.after}</div>`,
+        '  </div>',
+      ].join('\n')
+    })
+    .join('\n')
 }
 
 /**
- * @param {{title: string, scored: object, prose: object}} payload
+ * @param {{title: string, scores: object, prose: object}} payload
  * @returns {string} a complete HTML document
  */
 export function render(payload) {
-  const { title, scored, prose } = payload
+  const { title, scores, prose } = payload
+  if (!scores || typeof scores !== 'object') throw new Error('render: scores is required')
+  const scored = score(scores)
+
   const headline = requireProse(prose, 'headline')
-  const burns = requireProse(prose, 'burns')
   const strengths = requireProse(prose, 'strengths')
-  // rewrite is deliberately optional: when every high value field is unwritten
-  // there is nothing to rewrite, and inventing one would fabricate facts.
-  const rewrite = prose.rewrite ?? null
+  const burns = prose.burns ?? []
 
   const template = readFileSync(join(TOOL, 'templates', 'report.html'), 'utf8')
   const css = readFileSync(join(TOOL, 'assets', 'report.css'), 'utf8')
 
+  const { rows, note } = renderDimensionRows(scored.dimensions)
+  const writtenLine = `${scored.coverage.assessedCount}/${scored.coverage.totalCount} parts written`
+  const writtenSuffix = scored.coverage.confidence === 'firm' ? '' : ` &middot; ${scored.coverage.confidence}`
+  const writtenColor = scored.coverage.confidence === 'firm' ? 'var(--tm)' : scored.coverage.confidence === 'provisional' ? 'var(--amber)' : 'var(--rose)'
+
   const slots = {
     TITLE: escapeHtml(title),
     REPORT_CSS: css,
-    TOTAL: String(scored.scope.total),
-    BAND_LABEL: escapeHtml(scored.scope.band.label),
+    FIT_LABEL: escapeHtml(FIT_LABELS[scored.fit.status] || scored.fit.status),
+    FIT_COLOR: FIT_COLOR[scored.fit.status] || 'var(--tm)',
+    FIT_BG: FIT_BG[scored.fit.status] || 'transparent',
+    WRITTEN_LINE: writtenLine + writtenSuffix,
+    WRITTEN_COLOR: writtenColor,
+    RUBRIC_VERSION: rubricVersion(),
+    GAUGE_SVG: gaugeSvg(scored.scope.total, scored.scope.band.label),
+    CAP_LINE: renderCapLine(scored.scope.cappedBy, scored.scope.base),
+    DIMENSION_ROWS: rows,
+    DIMS_NOTE: note,
     HEADLINE: escapeHtml(headline),
-    PROVISIONAL_BADGE: scored.scope.provisional
-      ? '<p class="provisional">Provisional, coverage is thin</p>'
-      : '',
-    COVERAGE: renderCoverage(scored.coverage),
-    CAP_BLOCK: renderCap(scored.scope.cappedBy, scored.scope.base),
-    DIMENSIONS: renderDimensions(scored.dimensions),
-    FIT: renderFit(scored.fit),
+    STRENGTHS: renderStrengths(strengths),
     BURNS: renderBurns(burns),
-    STRENGTHS: strengths.map((s) => `  <li>${escapeHtml(s)}</li>`).join('\n'),
-    FIXES: renderFixes(scored.opportunities),
-    REWRITE: renderRewrite(rewrite),
-    RATINGS: renderRatings(scored),
+    OPPORTUNITIES: renderOpportunities(scores, scored),
   }
 
   let html = template
@@ -254,11 +254,13 @@ export function render(payload) {
 
 const isMain = process.argv[1] && import.meta.url === (await import('node:url')).pathToFileURL((await import('node:fs')).realpathSync(process.argv[1])).href
 if (isMain) {
-  const [inPath, outPath] = process.argv.slice(2)
-  if (!inPath || !outPath) {
-    console.error('usage: node scripts/render.mjs <roast-payload.json> <out.html>')
+  const [scoresPath, prosePath, outPath] = process.argv.slice(2)
+  if (!scoresPath || !prosePath || !outPath) {
+    console.error('usage: node bin/render.mjs <scores.json> <prose.json> <out.html>')
     process.exit(2)
   }
-  writeFileSync(outPath, render(JSON.parse(readFileSync(inPath, 'utf8'))), 'utf8')
+  const scoresInput = JSON.parse(readFileSync(scoresPath, 'utf8'))
+  const { title, ...prose } = JSON.parse(readFileSync(prosePath, 'utf8'))
+  writeFileSync(outPath, render({ title, scores: scoresInput, prose }), 'utf8')
   console.log(`render: wrote ${outPath}`)
 }

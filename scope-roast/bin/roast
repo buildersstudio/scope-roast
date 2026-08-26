@@ -3,8 +3,8 @@
 # it works whether it is called by relative path, by absolute path, or through
 # the symlink that `install` drops into a project's .claude/skills.
 #
-#   roast score  scores.json          prints the scored result as JSON
-#   roast render payload.json out.html
+#   roast score  scores.json                    prints the scored result as JSON
+#   roast render scores.json prose.json out.html
 
 set -eu
 
@@ -28,7 +28,7 @@ case "$cmd" in
   render) exec node "$BIN/render.mjs" "$@" ;;
   *)
     echo "usage: roast score <scores.json>" >&2
-    echo "       roast render <payload.json> <out.html>" >&2
+    echo "       roast render <scores.json> <prose.json> <out.html>" >&2
     exit 2
     ;;
 esac

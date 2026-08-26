@@ -43,7 +43,7 @@ What comes back:
 - **A ranked fix list.** Every gap and every weak part, ordered by how much the score would actually rise if you fixed it. Computed, not opined.
 - **Three burns.** Each one quotes your own document, names the rule it breaks, and gives you the fix. Sharp on purpose. Never about you, always about the writing.
 - **A Builders fit verdict**, separate from the score. A consumer product with a sharp scope scores high and comes back out of scope, because those are two different questions and merging them would be a lie.
-- **A Markdown report** written to `scope-roast.md`, which is the deliverable. An HTML version is optional, self-contained, and opens from disk with no network.
+- **Two report files.** `scope-roast.md` is the full deliverable. `scope-roast.html` is a dark, terminal-styled render of the same numbers, self-contained and opens from disk with no network, built for a screenshot or a link in a message.
 
 You can check every number in it, and the same ratings always give the same score. The opinions are the tool's, and you are welcome to argue with those. Neither is a funding decision. It reads a document and tells you how good it is.
 

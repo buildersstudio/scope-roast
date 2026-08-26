@@ -7,68 +7,93 @@
 <style>{{REPORT_CSS}}</style>
 </head>
 <body>
+<button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to light mode" aria-pressed="false">&#9728;</button>
+<div class="bgfx grid"></div>
+<div class="bgfx glow"></div>
 <div class="wrap">
 
-<p class="label">Scope roast, evidence not vibes</p>
-<h1>{{TITLE}}</h1>
-
-<div class="verdict">
-  <p class="label">Scope score</p>
-  <p class="total">{{TOTAL}}<span>/100</span></p>
-  <p class="band">{{BAND_LABEL}}</p>
-  <p>{{HEADLINE}}</p>
-  {{PROVISIONAL_BADGE}}
+<div class="head">
+  <div class="head-row">
+    <div class="eyebrow"><span class="dot"></span>scope-roast<span class="ghost">://report</span></div>
+  </div>
+  <div class="rule"></div>
+  <h1>{{TITLE}}<span class="cursor"></span></h1>
+  <div class="badges">
+    <span class="fit-pill" style="color:{{FIT_COLOR}};background:{{FIT_BG}}">{{FIT_LABEL}}</span>
+    <span class="ghost">[</span><span style="color:{{WRITTEN_COLOR}}">{{WRITTEN_LINE}}</span><span class="ghost">]</span>
+    <span class="ghost">[</span><span>rubric {{RUBRIC_VERSION}}</span><span class="ghost">]</span>
+  </div>
 </div>
 
-{{COVERAGE}}
+<div class="score-card">
+  <span class="corner tl"></span>
+  <span class="corner br"></span>
+  <div class="gauge-col">
+    <div class="gauge-wrap">{{GAUGE_SVG}}</div>
+    {{CAP_LINE}}
+  </div>
+  <div class="dims">
+{{DIMENSION_ROWS}}
+    {{DIMS_NOTE}}
+  </div>
+</div>
 
-{{CAP_BLOCK}}
-
-<h2>The six dimensions</h2>
-<p class="sub">The score is the weighted mean of these. Evidence carries the most, wedge is right behind it.</p>
-{{DIMENSIONS}}
-
-<h2>Would Builders build it</h2>
-<p class="sub">A separate question from the score, and it does not change the score.</p>
-{{FIT}}
-
-<h2>Where it falls over</h2>
-<p class="sub">Founders who would rather prove it than pitch it.</p>
-{{BURNS}}
-
-<h2>What is actually working</h2>
-<ul class="plain">
+<p class="headline">{{HEADLINE}}</p>
 {{STRENGTHS}}
-</ul>
 
-<h2>Fix these first</h2>
-<p class="sub">Ranked by how many scope points are genuinely recoverable, not by opinion.</p>
-<div class="overflow">
-<table>
-<thead><tr><th>Field</th><th>Now</th><th class="num">Points back</th></tr></thead>
-<tbody>
-{{FIXES}}
-</tbody>
-</table>
+<div class="section">
+  <div class="section-head"><span class="num" style="color:var(--rose)">01</span> where it falls over<span class="rule"></span></div>
+{{BURNS}}
 </div>
 
-{{REWRITE}}
-
-<h2>All fourteen, in detail</h2>
-<div class="overflow">
-<table>
-<thead><tr><th>Field</th><th>Basis</th><th class="num">Rating</th><th class="num">Weight</th></tr></thead>
-<tbody>
-{{RATINGS}}
-</tbody>
-</table>
+<div class="section opps">
+  <div class="section-head"><span class="num" style="color:var(--cyan)">02</span> write these first<span class="rule"></span></div>
+{{OPPORTUNITIES}}
 </div>
 
 <footer>
-  <p>You can check the maths yourself. The opinions are ours, and you are welcome to argue with those. Neither is a funding decision.</p>
-  <p class="sig">Bold founders, stellar companies.</p>
+  <span class="note">The maths is checkable, the opinions are arguable, neither is a funding decision.</span>
+  <span class="mark">
+    <svg width="97" height="13.5" viewBox="0 0 151 21" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Builders Studio">
+      <path d="M12.5969 9.82067C9.75134 9.82067 7.43469 7.49788 7.43469 4.62102V3.726H7.0433H6.6519V4.62102C6.6519 7.48722 4.34584 9.82067 1.48971 9.82067H0.601135V10.2149V10.6091H1.48971C4.33526 10.6091 6.6519 12.9319 6.6519 15.8088V16.7038H7.0433H7.43469V15.8088C7.43469 12.9426 9.74076 10.6091 12.5969 10.6091H13.4855V10.2149V9.82067H12.5969Z" fill="currentColor"/>
+      <path d="M38.9474 14.1901V5.96437H42.8825V13.4016C42.8825 16.2571 44.0461 17.7488 47.1455 17.7488H47.6745C50.3296 17.7488 52.5828 15.9588 52.5828 12.7516V5.96437H56.5285V20.6683H52.5828V18.3135C51.3557 19.9011 49.4304 20.956 46.5426 20.956C41.6872 20.956 38.9474 18.4308 38.9474 14.1901Z" fill="currentColor"/>
+      <path d="M60.484 5.96523H64.4297V20.6692H60.484V5.96523ZM60.484 4.05798H64.4297V0.0836487H60.484V4.05798Z" fill="currentColor"/>
+      <path d="M68.3329 0.0836487H72.2786V20.6692H68.3329V0.0836487Z" fill="currentColor"/>
+      <path d="M75.2747 13.3174C75.2747 8.821 79.2204 5.67777 84.4143 5.67777C88.0321 5.67777 90.2853 6.96702 91.3643 8.03253V0.0945282H95.31V20.6694H91.3643V18.4318C89.8516 20.0514 87.4186 20.9571 84.3615 20.9571C79.0617 20.9571 75.2747 18.2507 75.2747 13.3174ZM85.3664 17.7499C88.9842 17.7499 91.3537 15.9599 91.3537 13.3068C91.3537 10.6643 88.9947 8.86362 85.3664 8.86362H84.8375C81.4842 8.86362 79.2627 10.6537 79.2627 13.3068C79.2627 15.9492 81.4842 17.7499 84.8375 17.7499H85.3664Z" fill="currentColor"/>
+      <path d="M117.047 14.6065H102.513C103.158 16.5776 105.136 17.7497 107.791 17.7497H108.32C110.943 17.7497 112.234 16.8653 112.699 16.0129H116.899C116.349 18.5701 113.81 20.9568 108.056 20.9568C102.248 20.9568 98.3024 18.1013 98.3024 13.0721C98.3024 8.3413 102.851 5.66689 108.056 5.66689C113.778 5.66689 117.047 8.87405 117.047 13.168V14.6065V14.6065ZM112.932 11.6124C112.848 9.93955 110.943 8.87405 108.32 8.87405H107.791C104.988 8.87405 103.242 9.96086 102.597 11.6124H112.932Z" fill="currentColor"/>
+      <path d="M133.496 15.8105H137.558C137.738 16.8973 139.663 17.7497 141.99 17.7497H142.519C145.524 17.7497 146.317 17.2489 146.317 16.4604C146.317 15.8744 145.968 15.4056 143.947 15.1925L139.832 14.7769C135.601 14.3614 134.374 12.6033 134.374 10.3977C134.374 7.13728 137.526 5.66689 142.075 5.66689C147.65 5.66689 150.305 7.75527 150.601 10.8133H146.539C146.243 9.66252 145.026 8.87405 142.361 8.87405H141.832C139.473 8.87405 138.33 9.4068 138.33 10.142C138.33 10.76 138.626 11.1968 140.901 11.4313L144.466 11.7829C148.961 12.2197 150.305 14.0417 150.305 16.2793C150.305 19.1561 147.798 20.9568 142.223 20.9568C136.913 20.9568 133.729 18.9857 133.496 15.8105Z" fill="currentColor"/>
+      <path d="M124.134 9.52315C124.134 7.56262 125.711 5.96437 127.668 5.96437H132.481V9.52315H124.134Z" fill="currentColor"/>
+      <path d="M124.146 5.96437H120.2V20.6683H124.146V5.96437Z" fill="currentColor"/>
+      <path d="M32.082 10.0461C33.6264 9.39615 35.1179 7.84051 35.1179 5.51771C35.1179 2.14007 32.2301 0.0836487 28.2844 0.0836487H13.4854V4.22846C13.4854 6.52994 15.3366 8.40523 17.6321 8.40523V4.22846V3.72767H27.6391C29.7653 3.72767 30.8761 4.58007 30.8761 6.05047C30.8761 7.55283 29.7653 8.40523 27.6391 8.40523H17.6321V12.0492H27.9353C30.2096 12.0492 31.4684 12.9336 31.4684 14.5212C31.4684 16.2899 30.2096 17.0251 27.9353 17.0251H17.6321V16.2367V12.0599C15.3472 12.0599 13.4854 13.9245 13.4854 16.2367V20.6692H28.8133C32.759 20.6692 35.6997 18.5275 35.6997 15.022C35.6997 12.4328 34.0072 10.5789 32.082 10.0461Z" fill="currentColor"/>
+    </svg>
+  </span>
 </footer>
 
 </div>
+<script>
+(function () {
+  var KEY = 'scope-roast-theme';
+  var root = document.documentElement;
+  var btn = document.getElementById('theme-toggle');
+  function apply(theme) {
+    root.setAttribute('data-theme', theme);
+    if (!btn) return;
+    var goingLight = theme !== 'light';
+    btn.innerHTML = goingLight ? '&#9728;' : '&#9789;';
+    btn.setAttribute('aria-label', goingLight ? 'Switch to light mode' : 'Switch to dark mode');
+    btn.setAttribute('aria-pressed', theme === 'light' ? 'true' : 'false');
+  }
+  var stored = null;
+  try { stored = localStorage.getItem(KEY); } catch (e) {}
+  apply(stored === 'light' ? 'light' : 'dark');
+  if (btn) {
+    btn.addEventListener('click', function () {
+      var next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      apply(next);
+      try { localStorage.setItem(KEY, next); } catch (e) {}
+    });
+  }
+})();
+</script>
 </body>
 </html>

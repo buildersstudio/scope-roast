@@ -81,15 +81,32 @@ Two things the report must do that are easy to skip. Give them the process view 
 
 No em-dashes or en-dashes anywhere.
 
-## Phase 4: the optional HTML render
+## Phase 4: the HTML render
 
-Offer it, do not assume it. Most people only want the Markdown.
+This runs every time, right after the Markdown. It is not an extra to offer, it is the second half of the deliverable: a dark, terminal-styled `scope-roast.html` a founder can open from disk and screenshot, built from the same numbers as the Markdown.
 
-If they want it, build `roast-payload.json`. The `scored` key is the whole object the script printed, pasted unchanged. The `prose` key is yours.
+Build `prose.json` in the working directory:
+
+```json
+{
+  "title": "Roast: Reconcile",
+  "headline": "The one sharpest true thing about the document, same line as the Markdown headline.",
+  "burns": [
+    { "field": "icp", "quote": "Any mid-sized company in Europe.", "burn": "That is a continent with a headcount filter.", "fix": "Name the job title and the country." }
+  ],
+  "strengths": ["First strength, one sentence.", "Second strength, one sentence."]
+}
+```
+
+`burns` takes the same top three (or fewer) burns you wrote for the Markdown, just without the `rule` line: quote, burn, fix. `strengths` is the same two you wrote for the Markdown. Reuse the wording, do not write it twice.
+
+Then run:
 
 ```bash
-<tool-root>/bin/roast render roast-payload.json scope-roast.html
+<tool-root>/bin/roast render scores.json prose.json scope-roast.html
 ```
+
+Do not compute the total, the dimensions, or the opportunity numbers yourself. If the script throws, fix `prose.json` and run it again.
 
 Then in the chat give them:
 
@@ -98,7 +115,7 @@ Then in the chat give them:
 - The fit verdict and its reasons, as a separate statement. Never merge it into the score sentence.
 - The three burns, in full.
 - The top three entries from `opportunities`, and what the score would rise to if they fixed them. This is computed, so quote the numbers.
-- The path to `scope-roast.md`.
+- The paths to `scope-roast.md` and `scope-roast.html`.
 
 Do not paste the whole file back. Do not soften the burns in the chat version.
 

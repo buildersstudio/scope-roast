@@ -75,21 +75,15 @@ test('the roast wrapper renders through the symlink', () => {
   try {
     execFileSync(INSTALL, [p])
     const roast = join(p, '.claude', 'skills', 'scope-roast', 'bin', 'roast')
-    const scored = JSON.parse(
-      execFileSync(roast, ['score', join(REPO, 'scope-roast/fixtures/weak.scores.json')], { encoding: 'utf8', cwd: p })
-    )
-    const payloadPath = join(p, 'payload.json')
-    writeFileSync(payloadPath, JSON.stringify({
+    const scoresPath = join(REPO, 'scope-roast/fixtures/weak.scores.json')
+    const prosePath = join(p, 'prose.json')
+    writeFileSync(prosePath, JSON.stringify({
       title: 'T',
-      scored,
-      prose: {
-        headline: 'H',
-        burns: [{ field: 'icp', quote: 'q', burn: 'b', rule: 'r', fix: 'f' }],
-        strengths: ['a', 'b'],
-        rewrite: null,
-      },
+      headline: 'H',
+      burns: [{ field: 'icp', quote: 'q', burn: 'b', fix: 'f' }],
+      strengths: ['a', 'b'],
     }))
-    execFileSync(roast, ['render', payloadPath, join(p, 'report.html')], { cwd: p })
+    execFileSync(roast, ['render', scoresPath, prosePath, join(p, 'report.html')], { cwd: p })
     assert.match(readFileSync(join(p, 'report.html'), 'utf8'), /^<!doctype html>/i)
   } finally {
     rmSync(p, { recursive: true, force: true })
