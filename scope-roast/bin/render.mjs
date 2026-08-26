@@ -95,13 +95,10 @@ function gaugeSvg(total, band) {
   const dash = ((total / 100) * 282.74).toFixed(1)
   return [
     '<svg viewBox="0 0 220 122">',
-    // Only the upper ticks: the two at the baseline (y=112) sit at the same
-    // height as the band label below and collide with long labels like
-    // "There is no scope here yet".
-    '<g stroke="var(--tg)" stroke-width="1" opacity="0.8">',
-    '<line x1="35" y1="49" x2="27" y2="42"/>',
-    '<line x1="110" y1="16" x2="110" y2="6"/><line x1="185" y1="49" x2="193" y2="42"/>',
-    '</g>',
+    // No decorative tick marks: the gauge sits directly above the band
+    // label, and every tick position tried so far has ended up close enough
+    // to some label ("There is no scope here yet" and others) to visually
+    // collide with it. The arcs alone carry the reading.
     '<path d="M 20 112 A 90 90 0 0 1 200 112" fill="none" stroke="var(--tg)" stroke-opacity="0.3" stroke-width="3" stroke-dasharray="1 5" stroke-linecap="round"/>',
     `<path d="M 20 112 A 90 90 0 0 1 200 112" fill="none" stroke="${color}" stroke-width="9" stroke-linecap="round" stroke-dasharray="${dash} 282.74" style="filter:drop-shadow(0 0 7px ${color})"/>`,
     '</svg>',
