@@ -52,6 +52,12 @@ const FIT_BG = {
   'out-of-scope': 'rgba(255,61,158,0.07)',
 }
 
+const TIER_LABELS = { verified: 'Verified', claimed: 'Claimed', aspirational: 'Aspirational' }
+const TIER_COLOR = { verified: 'var(--emerald)', claimed: 'var(--amber)', aspirational: 'var(--rose)' }
+
+const IDEA_LENS_COLOR = { yes: 'var(--emerald)', partial: 'var(--amber)', no: 'var(--rose)' }
+const IDEA_LENS_GLYPH = { yes: '&#10003;', partial: '&#8231;', no: '&#10005;' }
+
 const label = (f) => FIELD_LABELS[f] || f
 
 export function escapeHtml(s) {
@@ -89,11 +95,10 @@ function gaugeSvg(total, band) {
   const dash = ((total / 100) * 282.74).toFixed(1)
   return [
     '<svg viewBox="0 0 220 122">',
-    '<g stroke="var(--tg)" stroke-width="1" opacity="0.8">',
-    '<line x1="14" y1="112" x2="4" y2="112"/><line x1="35" y1="49" x2="27" y2="42"/>',
-    '<line x1="110" y1="16" x2="110" y2="6"/><line x1="185" y1="49" x2="193" y2="42"/>',
-    '<line x1="206" y1="112" x2="216" y2="112"/>',
-    '</g>',
+    // No decorative tick marks: the gauge sits directly above the band
+    // label, and every tick position tried so far has ended up close enough
+    // to some label ("There is no scope here yet" and others) to visually
+    // collide with it. The arcs alone carry the reading.
     '<path d="M 20 112 A 90 90 0 0 1 200 112" fill="none" stroke="var(--tg)" stroke-opacity="0.3" stroke-width="3" stroke-dasharray="1 5" stroke-linecap="round"/>',
     `<path d="M 20 112 A 90 90 0 0 1 200 112" fill="none" stroke="${color}" stroke-width="9" stroke-linecap="round" stroke-dasharray="${dash} 282.74" style="filter:drop-shadow(0 0 7px ${color})"/>`,
     '</svg>',
@@ -202,6 +207,90 @@ function renderOpportunities(scoresInput, scored) {
     .join('\n')
 }
 
+function renderScopeChecklist(scope) {
+  return scope
+    .map((s) => {
+      const glyph = s.pass === true ? '&#10003;' : s.pass === false ? '&#10005;' : '&#8212;'
+      const color = s.pass === true ? 'var(--emerald)' : s.pass === false ? 'var(--rose)' : 'var(--tg)'
+      return `    <div class="scope-check" style="color:${color}"><span class="glyph">${glyph}</span><span class="label">${escapeHtml(s.label)}</span></div>`
+    })
+    .join('\n')
+}
+
+function renderScorecard(scorecard) {
+  return scorecard
+    .map((s) => {
+      const assessed = s.score !== null && s.score !== undefined
+      const width = assessed ? (s.score / 3) * 100 : 0
+      const scoreDisp = assessed ? `${s.score}/3` : '&mdash;'
+      const tier = assessed && s.tier ? `<span class="tier" style="color:${TIER_COLOR[s.tier]}">${TIER_LABELS[s.tier]}</span>` : ''
+      return [
+        `  <div class="score-row" style="opacity:${assessed ? 1 : 0.45}">`,
+        `    <div class="score-label">${escapeHtml(s.label)}</div>`,
+        `    <div class="segtrack score-track"><div class="fill" style="width:${width}%;background:var(--violet);box-shadow:0 0 8px var(--violet)"></div></div>`,
+        `    <div class="score-val">${scoreDisp}</div>`,
+        `    <div class="score-tier">${tier || '<span class="score-na">not assessable</span>'}</div>`,
+        `    <div class="score-note">${escapeHtml(s.note)}</div>`,
+        '  </div>',
+      ].join('\n')
+    })
+    .join('\n')
+}
+
+function renderIdeaLens(ideaLens) {
+  return ideaLens
+    .map(
+      (i) =>
+        `    <div class="lens-tag" style="color:${IDEA_LENS_COLOR[i.value]};border-color:${IDEA_LENS_COLOR[i.value]}"><span class="glyph">${IDEA_LENS_GLYPH[i.value]}</span>${escapeHtml(i.label)}</div>`
+    )
+    .join('\n')
+}
+
+function renderRedFlags(redFlags) {
+  return redFlags.map((f) => `    <div class="flag-row"><span class="glyph">&#9650;</span>${escapeHtml(f)}</div>`).join('\n')
+}
+
+/**
+ * The Builders assessment is a second, separate rubric (batch admission, not
+ * scope quality) grafted onto the same report. It only appears when the
+ * model actually ran that assessment and supplied one; most scopes will
+ * never carry this key, and the whole section disappears when absent.
+ */
+function renderAssessment(assessment) {
+  if (!assessment) return ''
+  const { scope, scorecard, ideaLens, redFlags } = assessment
+  const flags = redFlags && redFlags.length ? renderRedFlags(redFlags) : '<div class="flag-row none">Nothing flagged.</div>'
+  return [
+    '<div class="section">',
+    '  <div class="section-head"><span class="num" style="color:var(--violet)">03</span> the builders read<span class="rule"></span></div>',
+    '  <div class="assess-block">',
+    '    <div class="assess-label">Scope test</div>',
+    '    <div class="scope-grid">',
+    renderScopeChecklist(scope),
+    '    </div>',
+    '  </div>',
+    '  <div class="assess-block">',
+    '    <div class="assess-label">Scorecard</div>',
+    '    <div class="scorecard">',
+    renderScorecard(scorecard),
+    '    </div>',
+    '  </div>',
+    '  <div class="assess-block">',
+    '    <div class="assess-label">Idea lens</div>',
+    '    <div class="lens-row">',
+    renderIdeaLens(ideaLens),
+    '    </div>',
+    '  </div>',
+    '  <div class="assess-block">',
+    '    <div class="assess-label">Red flags</div>',
+    '    <div class="flags">',
+    flags,
+    '    </div>',
+    '  </div>',
+    '</div>',
+  ].join('\n')
+}
+
 /**
  * @param {{title: string, scores: object, prose: object}} payload
  * @returns {string} a complete HTML document
@@ -240,6 +329,7 @@ export function render(payload) {
     STRENGTHS: renderStrengths(strengths),
     BURNS: renderBurns(burns),
     OPPORTUNITIES: renderOpportunities(scores, scored),
+    ASSESSMENT: renderAssessment(prose.assessment ?? null),
   }
 
   let html = template
