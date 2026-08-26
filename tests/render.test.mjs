@@ -166,3 +166,42 @@ test('render works with no burns at all, for a document too thin to support any'
   const p = payload('sparse', { burns: [] })
   assert.match(render(p), /^<!doctype html>/i)
 })
+
+test('the assessment section is absent when no assessment was run', () => {
+  const html = render(payload())
+  assert.ok(!html.includes('the builders read'))
+  assert.ok(!html.includes('<div class="assess-block">'))
+})
+
+test('the assessment section renders scope checks, scorecard, idea lens and red flags when supplied', () => {
+  const p = payload('weak', {
+    assessment: {
+      scope: [{ label: 'Enterprise AI / B2B', pass: true }, { label: 'Consumer product', pass: false }],
+      scorecard: [
+        { label: 'Domain Sharpness', score: null, tier: null, note: 'No founder in the source.' },
+        { label: 'AI Fluency', score: 3, tier: 'verified', note: 'Agentic by design.' },
+      ],
+      ideaLens: [{ label: 'Scope fit', value: 'yes' }, { label: 'Why-now', value: 'partial' }],
+      redFlags: ['No candidate to assess.'],
+    },
+  })
+  const html = render(p)
+  assert.match(html, /the builders read/)
+  assert.match(html, /Enterprise AI \/ B2B/)
+  assert.match(html, /not assessable/)
+  assert.match(html, /Verified/)
+  assert.match(html, /Scope fit/)
+  assert.match(html, /No candidate to assess\./)
+})
+
+test('an empty red flags list says so instead of an empty section', () => {
+  const p = payload('weak', {
+    assessment: {
+      scope: [{ label: 'Enterprise AI / B2B', pass: true }],
+      scorecard: [{ label: 'AI Fluency', score: 3, tier: 'verified', note: 'x' }],
+      ideaLens: [{ label: 'Scope fit', value: 'yes' }],
+      redFlags: [],
+    },
+  })
+  assert.match(render(p), /Nothing flagged\./)
+})

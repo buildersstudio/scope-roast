@@ -51,6 +51,8 @@
 {{OPPORTUNITIES}}
 </div>
 
+{{ASSESSMENT}}
+
 <footer>
   <span class="note">The maths is checkable, the opinions are arguable, neither is a funding decision.</span>
   <span class="mark">
@@ -83,9 +85,11 @@
     btn.setAttribute('aria-label', goingLight ? 'Switch to light mode' : 'Switch to dark mode');
     btn.setAttribute('aria-pressed', theme === 'light' ? 'true' : 'false');
   }
+  var fromUrl = null;
+  try { fromUrl = new URLSearchParams(location.search).get('theme'); } catch (e) {}
   var stored = null;
   try { stored = localStorage.getItem(KEY); } catch (e) {}
-  apply(stored === 'light' ? 'light' : 'dark');
+  apply((fromUrl || stored) === 'light' ? 'light' : 'dark');
   if (btn) {
     btn.addEventListener('click', function () {
       var next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';

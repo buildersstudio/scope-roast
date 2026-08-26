@@ -87,11 +87,11 @@ Let the length follow what matters. Uniform sections are the loudest sign of a t
 
 No em-dashes or en-dashes anywhere.
 
-## Phase 4: the optional HTML render
+## Phase 4: the HTML render
 
-Offer it, do not assume it. Most people only want the Markdown. Ask once, after handing them the Markdown: something like "want a visual version too, a dark terminal-styled page you can screenshot?"
+This runs right after the Markdown, every time. It is the second half of the deliverable, not an extra to ask about: a dark, terminal-styled `scope-roast.html` a founder can open from disk and screenshot, built from the same numbers as the Markdown.
 
-If they want it, build `prose.json` in the working directory:
+Build `prose.json` in the working directory:
 
 ```json
 {
@@ -105,6 +105,21 @@ If they want it, build `prose.json` in the working directory:
 ```
 
 `burns` takes the same top three (or fewer) burns you wrote for the Markdown, just without the `rule` line: quote, burn, fix. `strengths` is the same two you wrote for the Markdown. Reuse the wording, do not write it twice.
+
+### If a Builders founder/venture assessment was also run
+
+Separate skill, separate rubric (batch admission, not scope quality). Do not run it as part of a normal roast. When the user has explicitly run `builders-founder-assessment` on the same document in the same session, fold its read into this render with an optional `assessment` key in `prose.json`:
+
+```json
+"assessment": {
+  "scope": [{ "label": "Enterprise AI / B2B", "pass": true }],
+  "scorecard": [{ "label": "Domain Sharpness", "score": null, "tier": null, "note": "No founder to attribute this to." }],
+  "ideaLens": [{ "label": "Scope fit", "value": "yes" }],
+  "redFlags": ["No candidate. This framework judges a person, and no person is in the source."]
+}
+```
+
+`scope` is the four scope-test lines, `pass` is `true`, `false`, or `null` for not assessable. `scorecard` is the five non-negotiables, `score` is `1`-`3` or `null`, `tier` is `verified`, `claimed`, `aspirational`, or `null` when the score is null. `ideaLens` is the six checks, `value` is `yes`, `partial`, or `no`. `redFlags` can be an empty array. Never invent a verdict badge (Admit, Hold, Decline, and so on) in this section: this report is not a batch-decision document, and whether someone gets a seat is not something to render here.
 
 Then run:
 
@@ -121,7 +136,7 @@ Then in the chat give them:
 - The fit verdict and its reasons, as a separate statement. Never merge it into the score sentence.
 - The three burns, in full.
 - The top three entries from `opportunities`, and what the score would rise to if they fixed them. This is computed, so quote the numbers.
-- The path to `scope-roast.md`, and to `scope-roast.html` too if you rendered it.
+- The paths to `scope-roast.md` and `scope-roast.html`.
 
 Do not paste the whole file back. Do not soften the burns in the chat version.
 
