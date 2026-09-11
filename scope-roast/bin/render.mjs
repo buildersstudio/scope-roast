@@ -258,7 +258,9 @@ function renderRedFlags(redFlags) {
  */
 function renderAssessment(assessment) {
   if (!assessment) return ''
-  const { scope, scorecard, ideaLens, redFlags } = assessment
+  // Partial assessments happen: the model supplies the blocks it ran and omits
+  // the rest. Render what is there rather than throwing on a missing key.
+  const { scope = [], scorecard = [], ideaLens = [], redFlags = [] } = assessment
   const flags = redFlags && redFlags.length ? renderRedFlags(redFlags) : '<div class="flag-row none">Nothing flagged.</div>'
   return [
     '<div class="section">',

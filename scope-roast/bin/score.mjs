@@ -6,7 +6,7 @@
 import { readFileSync } from 'node:fs'
 
 /**
- * The twelve scope fields, canonical order.
+ * The fourteen scope fields, canonical order.
  * @type {readonly string[]}
  */
 export const FIELDS = Object.freeze([
@@ -404,7 +404,7 @@ const isMain = process.argv[1] && import.meta.url === (await import('node:url'))
 if (isMain) {
   const path = process.argv[2]
   if (!path) {
-    console.error('usage: node scripts/score.mjs <scores.json>')
+    console.error('usage: node bin/score.mjs <scores.json>')
     process.exit(2)
   }
   console.log(JSON.stringify(score(JSON.parse(readFileSync(path, 'utf8'))), null, 2))
